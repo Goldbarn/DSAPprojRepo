@@ -1,0 +1,13 @@
+{
+  "_comment": "Hand-built synonym list. Keys and values are matched after normalization. Order values by preference.",
+  "big": ["large", "huge", "great", "vast"],
+  "small": ["little", "tiny", "slight", "minor"],
+  "quick": ["fast", "rapid", "swift", "speedy"],
+  "said": ["stated", "remarked", "replied", "answered"],
+  "begin": ["start", "commence"],
+  "end": ["finish", "close", "conclude"],
+  "happy": ["glad", "pleased", "cheerful", "content"],
+  "sad": ["unhappy", "sorrowful", "gloomy"],
+  "look": ["glance", "gaze", "peer"],
+  "walk": ["stroll", "stride", "wander"]
+}
