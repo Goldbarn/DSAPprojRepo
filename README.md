@@ -33,6 +33,8 @@ PYTHONPATH=scripts uv run python scripts/run_v2.py   # -> results/post-evaluatio
 uv run --group report python scripts/figures.py      # -> report/figures/
 ```
 
+Sentence rewriting (separate run): `results/rewrite/PROCEDURE.md` has the rules, and `scripts/rewrite_tool.py` shows word colors and scores saved rewrites.
+
 Use `scripts/report.py --pending <run_dir>` for a summary before usability review.
 `scripts/check_watermark.py` is a self-check for the watermarking edits.
 
@@ -66,10 +68,11 @@ Watermarked output is the preprocessed text (NFKC, Cf removed) with substitution
 | `scripts/` | Experiment pipeline |
 | `config/settings.toml` | Frozen settings for the first evaluation |
 | `config/settings_v2.toml` | Length-based thresholds for the post-evaluation run |
+| `config/settings_v3.toml` | The same thresholds, used for the sentence rewriting run |
 | `data/sources/` | Raw source texts and `sources.csv` |
 | `data/splits/` | Calibration/evaluation sets and `manifest.json` |
 | `data/synonyms.json` | Hand-built synonym list; order is the edit order |
-| `results/` | Saved runs, one directory per run; `results/proxy-review/` holds the AI proxy quality review |
+| `results/` | Saved runs, one directory per run; `results/proxy-review/` and `results/rewrite/review-*` hold AI proxy quality reviews; `results/rewrite/` holds sentence rewrites |
 | `report/` | Milestone reports; PNG charts in `report/figures/` |
 | `secrets/` | Demonstration watermark key |
 
@@ -134,4 +137,4 @@ Watermarked output is the preprocessed text (NFKC, Cf removed) with substitution
 | Wil N | Second source list, including the nonfiction sources | [37c28d8](https://github.com/Goldbarn/DSAPprojRepo/commit/37c28d8) |
 | Austin (Yoyojesus) | Package setup, detector, watermarker, pipeline scripts, merged data, expanded synonym list, calibration and evaluation runs, figures, report drafting | [6512aea](https://github.com/Goldbarn/DSAPprojRepo/commit/6512aea), [bc2165d](https://github.com/Goldbarn/DSAPprojRepo/commit/bc2165d), [8214a75](https://github.com/Goldbarn/DSAPprojRepo/commit/8214a75), [58b4da5](https://github.com/Goldbarn/DSAPprojRepo/commit/58b4da5), [c721687](https://github.com/Goldbarn/DSAPprojRepo/commit/c721687), [7691143](https://github.com/Goldbarn/DSAPprojRepo/commit/7691143) |
 
-Claude Code and GPT models assisted with code, data preparation, report drafting, and simplification. GPT-6.1 acted as a proxy quality reviewer, because no teammate review was completed.
+Claude Code and GPT models assisted with code, data preparation, report drafting, sentence rewriting, and simplification. GPT-6.1 acted as a proxy quality reviewer, because no teammate review was completed.
