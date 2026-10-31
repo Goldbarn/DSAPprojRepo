@@ -112,7 +112,7 @@ We tested these settings on 1,500 fresh passages (500 per group), drawn at rando
 
 The fresh-passage rate has an exact 95% interval of 0.11% to 0.78%, or about 33 false flags per 10,000 submissions (11 to 78). This is not zero. Calibration predicted about 1 in 1,933, and the fresh passages produced more, which shows how far a tuned estimate can drift on new text. The fresh passages are independent of this design, while the repeated 150 are not, because their results prompted it. The fresh passages also share books with the evaluation set and carry the same source correlation.
 
-The cost was detection. On the same 10 watermarking passages, repeated and so not independent, 6 of 10 outputs were flagged instead of 7, with an exact interval of 26% to 88%. On the 5 calibration passages, 3 were flagged. 2554-0062 dropped out at 0.551. The same proxy review passed none of these outputs: 0 of 10 evaluation and 0 of 5 calibration. The lower false-positive rate therefore did not come with usable watermarks, and quality is the main unsolved problem in both designs.
+The cost was detection. On the same 10 watermarking passages, repeated and so not independent, 6 of 10 outputs were flagged instead of 7, with an exact interval of 26% to 88%. On the 5 calibration passages, 3 were flagged. 2554-0062 dropped out at 0.551. The same proxy review passed none of these outputs: 0 of 10 evaluation and 0 of 5 calibration. These outputs differ only slightly from the first set, and the reviewer gave each pair the same note as its first-set counterpart, so this is not a separate judgment. The lower false-positive rate therefore did not come with usable watermarks, and quality is the main unsolved problem in both designs.
 
 ## 5. Threat model
 
