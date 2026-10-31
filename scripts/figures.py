@@ -17,6 +17,9 @@ BLUE, ORANGE, AQUA = "#2a78d6", "#eb6834", "#1baf7a"
 # Counts from the proxy reviews in results/proxy-review and results/rewrite/review-2.
 WORD_SWAPS = [7, 5, 0, 0]
 REWRITING = [9, 9, 4, 4]
+BROADER_V1 = [12, 11, 2, 1]
+BROADER_V2 = [9, 7, 1, 0]
+BROADER_REWRITE = [12, 17, 14, 6]
 
 plt.rcParams.update(
     {
@@ -120,6 +123,23 @@ def method_comparison() -> None:
     fig.savefig(OUT / "method_comparison.png", dpi=220)
 
 
+def broader_test() -> None:
+    labels = ["Flagged", "Meaning preserved", "Readable", "Usable and flagged"]
+    series = ((BROADER_V1, ORANGE, "Word swaps v1"), (BROADER_V2, AQUA, "Word swaps v2"), (BROADER_REWRITE, BLUE, "Rewriting"))
+    fig, ax = plt.subplots(figsize=(6.5, 2.6))
+    for n, (values, color, label) in enumerate(series):
+        bars = ax.bar([i + (n - 1) * 0.27 for i in range(4)], values, width=0.25, color=color, label=label)
+        ax.bar_label(bars, padding=2, color=INK, fontsize=8)
+    ax.set_xticks(range(4), labels)
+    ax.set_ylabel("Passages out of 20")
+    ax.set_ylim(0, 22)
+    ax.grid(axis="y", color=GRID, lw=0.6)
+    ax.set_axisbelow(True)
+    ax.legend(frameon=False, ncol=3, loc="upper center", bbox_to_anchor=(0.5, 1.18))
+    fig.tight_layout()
+    fig.savefig(OUT / "broader_test.png", dpi=220)
+
+
 def watermarking() -> None:
     rows = sorted(read_csv(FIRST / "wm_scores.csv"), key=lambda r: float(r["score_after"]))
     fig, ax = plt.subplots(figsize=(6.5, 2.9))
@@ -152,3 +172,4 @@ if __name__ == "__main__":
     false_positives()
     watermarking()
     method_comparison()
+    broader_test()
