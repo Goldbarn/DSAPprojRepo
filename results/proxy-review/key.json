@@ -1,0 +1,122 @@
+{
+ "R01": {
+  "sheet": "evaluation",
+  "id": "2600-1571"
+ },
+ "R02": {
+  "sheet": "evaluation",
+  "id": "1184-1511"
+ },
+ "R03": {
+  "sheet": "evaluation",
+  "id": "1400-0614"
+ },
+ "R04": {
+  "sheet": "v2_evaluation",
+  "id": "345-0233"
+ },
+ "R05": {
+  "sheet": "v2_calibration",
+  "id": "74-0038"
+ },
+ "R06": {
+  "sheet": "evaluation",
+  "id": "S05-0533"
+ },
+ "R07": {
+  "sheet": "v2_evaluation",
+  "id": "1400-0614"
+ },
+ "R08": {
+  "sheet": "v2_evaluation",
+  "id": "84-0017"
+ },
+ "R09": {
+  "sheet": "evaluation",
+  "id": "2554-0062"
+ },
+ "R10": {
+  "sheet": "v2_evaluation",
+  "id": "1184-1511"
+ },
+ "R11": {
+  "sheet": "evaluation",
+  "id": "84-0017"
+ },
+ "R12": {
+  "sheet": "evaluation",
+  "id": "46-0155"
+ },
+ "R13": {
+  "sheet": "calibration",
+  "id": "74-0206"
+ },
+ "R14": {
+  "sheet": "v2_calibration",
+  "id": "76-0479"
+ },
+ "R15": {
+  "sheet": "calibration",
+  "id": "76-0479"
+ },
+ "R16": {
+  "sheet": "v2_evaluation",
+  "id": "S05-0533"
+ },
+ "R17": {
+  "sheet": "v2_evaluation",
+  "id": "2600-1571"
+ },
+ "R18": {
+  "sheet": "evaluation",
+  "id": "2600-2189"
+ },
+ "R19": {
+  "sheet": "v2_calibration",
+  "id": "1661-0077"
+ },
+ "R20": {
+  "sheet": "v2_evaluation",
+  "id": "514-0605"
+ },
+ "R21": {
+  "sheet": "v2_calibration",
+  "id": "74-0206"
+ },
+ "R22": {
+  "sheet": "v2_evaluation",
+  "id": "46-0155"
+ },
+ "R23": {
+  "sheet": "evaluation",
+  "id": "514-0605"
+ },
+ "R24": {
+  "sheet": "evaluation",
+  "id": "345-0233"
+ },
+ "R25": {
+  "sheet": "calibration",
+  "id": "74-0038"
+ },
+ "R26": {
+  "sheet": "calibration",
+  "id": "1661-0077"
+ },
+ "R27": {
+  "sheet": "v2_calibration",
+  "id": "74-0221"
+ },
+ "R28": {
+  "sheet": "v2_evaluation",
+  "id": "2554-0062"
+ },
+ "R29": {
+  "sheet": "calibration",
+  "id": "74-0221"
+ },
+ "R30": {
+  "sheet": "v2_evaluation",
+  "id": "2600-2189"
+ }
+}
