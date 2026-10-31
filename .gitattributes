@@ -1,2 +1,2 @@
 # Preserve the frozen experiment's byte hashes across checkouts.
-/results/rewrite/large-test/** -text
+/results/rewrite/large-test/** -text whitespace=blank-at-eol,-blank-at-eof,space-before-tab,cr-at-eol
