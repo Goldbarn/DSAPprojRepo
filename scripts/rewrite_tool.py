@@ -63,7 +63,7 @@ def main() -> None:
     sub.add_parser("words").add_argument("words", nargs="+")
     p_score = sub.add_parser("score")
     p_score.add_argument("run_dir", type=Path)
-    p_score.add_argument("split", choices=["calibration", "evaluation"])
+    p_score.add_argument("split", choices=["calibration", "evaluation", "fresh"])
     args = parser.parse_args()
 
     key = load_key(KEY_PATH)

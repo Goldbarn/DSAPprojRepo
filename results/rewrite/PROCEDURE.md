@@ -11,3 +11,17 @@ sentence level, using `scripts/rewrite_tool.py` to see word colors and the live 
 5. Do not repeat a device such as `then` or `that` often enough for a reader to notice.
 6. Once above the target, give margin back by restoring original wording.
 7. Stop at the target or after 15 minutes per passage, and keep the best output even if it misses.
+
+## Revision for the broader test
+
+Added after the evaluation review, before any passage in `data/splits/fresh_wm.jsonl` was opened. These rules use
+information from the 10 evaluation passages, so they are tested only on new passages.
+
+8. Read the finished text as a stranger would. Every changed phrase must be something a writer of that period would
+   plausibly write. Odd constructions such as `his throat held by a wolf` or `of tiny feet` do not pass.
+9. Keep verbs of thought and speech as the original has them. `he felt, "They have come back!"` does not pass.
+10. Use `some` only where it is natural, and do not replace a person's name or noun with `that fellow` repeatedly.
+11. Do not use `that` as a loose relative after a comma, and do not cut a sentence so far that it loses its grammar.
+12. Stop once the passage is flagged if the next edit would cost readability. Quality outranks the 0.57 target, and a
+    passage that cannot be flagged cleanly is kept as a miss.
+
