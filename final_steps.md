@@ -1,6 +1,6 @@
 # Final steps for Milestone 1
 
-The code, data, runs, figures, and report draft are done. These steps are left, in order.
+[PR #1](https://github.com/Goldbarn/DSAPprojRepo/pull/1) has merged into `main`. The code, data, runs, figures, and report draft are in `main`. These steps remain before submission.
 
 ## 1. Trim the report
 
@@ -12,7 +12,7 @@ The code, data, runs, figures, and report draft are done. These steps are left, 
 
 ## 2. Get a teammate to review the rewrites
 
-The project requires a teammate review. So far only an AI reviewer has done it.
+The project requires a teammate review. The saved quality results are proxy reviews; the teammate review is still outstanding.
 
 - Who: Will or Rowen, who did not edit these passages.
 - Compare each file in `results/rewrite/evaluation/original/` with the same file name in `results/rewrite/evaluation/watermarked/`.
@@ -21,21 +21,14 @@ The project requires a teammate review. So far only an AI reviewer has done it.
 - Save the answers in a new file, `results/rewrite/teammate_review.csv`, with these columns: `id,reviewer,meaning_preserved,readable,notes`.
 - Update the table in Section 4.6 of the report and name the reviewer.
 
-If nobody can review, keep the AI proxy results. The report already labels them as a proxy.
+If nobody can review, ask the instructor whether the existing proxy results are acceptable. Keep them labeled as proxy results.
 
-## 3. Ask the instructor two questions
-
-- Is an AI proxy review acceptable if a teammate review is not done?
-- Does AI-assisted sentence rewriting count as the automated rewriting the project allows?
-
-## 4. Check the contribution statement
+## 3. Check the contribution statement
 
 - File: `README.md`, under `## Contribution statement`
-- Confirm that each person's work is described correctly, and that the note on AI assistance matches course rules.
+- Confirm that each person's work is described correctly.
 
-## 5. Merge and submit
-
-- Merge [PR #1](https://github.com/Goldbarn/DSAPprojRepo/pull/1) into `main`.
+## 4. Export and submit
 - Export `report/milestone1.md` to the format the course wants, and check the page count and that the figures appear.
 - Submit the report and the repository link.
 

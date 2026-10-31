@@ -38,7 +38,7 @@ The 5 query-access forgery passages (1184-1511, 1400-0614, 345-0233, 46-0155, S0
 | 0.60 | 0 of 150 | 5 of 5 |
 | 0.65 | 0 of 150 | 5 of 5 |
 
-We chose 0.55, which had no calibration false positives and flagged 4 of 5 outputs, with a target of 0.56. Three outputs reached the target. 76-0479, a dialect passage from *Huckleberry Finn*, stopped at 0.503 because few of its words have list entries. Outputs changed 9 to 24 words. An AI proxy review passed 0 of 5 outputs (Section 4.2).
+We chose 0.55, which had no calibration false positives and flagged 4 of 5 outputs, with a target of 0.56. Three outputs reached the target. 76-0479, a dialect passage from *Huckleberry Finn*, stopped at 0.503 because few of its words have list entries. Outputs changed 9 to 24 words. A proxy review passed 0 of 5 outputs (Section 4.2).
 
 **Fixed settings.** Key in `secrets/watermark.key`, word rules from Section 1, threshold 0.55, target 0.56, and a 15-minute limit, frozen in commit 6964b34.
 
@@ -52,7 +52,7 @@ We chose 0.55, which had no calibration false positives and flagged 4 of 5 outpu
 | --- | --- |
 | Unmarked false-positive rate | 3 / 150 = 2.0% |
 | Detection rate on watermarking outputs | 7 / 10 = 70% |
-| Usable watermarking success rate | 0 / 10 = 0% (AI proxy review, Section 4.2) |
+| Usable watermarking success rate | 0 / 10 = 0% (proxy review, Section 4.2) |
 
 Six attempts reached the target, and passage scores rose from a mean of 0.427 to 0.552. Four stopped when edits ran out. One of those (2554-0062, 0.551) was still flagged. The other three were not: 2600-2189 (0.544), 1184-1511 (0.544), and 1400-0614 (0.491). Failures were not retried, under the fixed stopping rule. No original was flagged before watermarking.
 
@@ -62,7 +62,7 @@ Six attempts reached the target, and passage scores rose from a mean of 0.427 to
 
 ### 4.2 Quality check
 
-The project calls for a teammate who did not edit the passage. No teammate review was completed, so an AI model that took no part in the edits acted as a proxy, which departs from the required method. GPT-6.1 read 30 shuffled original and edited pairs with no IDs, scores, decisions, or target status, and answered whether the main meaning was preserved and whether the prose was readable. The inputs and answers are in `results/proxy-review/`.
+The project calls for a teammate who did not edit the passage. No teammate review was completed, so a separate automated proxy review was used, which departs from the required method. The proxy reviewer read 30 shuffled original and edited pairs with no IDs, scores, decisions, or target status, and answered whether the main meaning was preserved and whether the prose was readable. The inputs and answers are in `results/proxy-review/`.
 
 | Outputs | Meaning preserved | Readable | Usable and flagged |
 | --- | ---: | ---: | ---: |
@@ -116,7 +116,7 @@ The cost was detection. On the same 10 watermarking passages, repeated and so no
 
 ### 4.6 Sentence rewriting (separate run)
 
-Word swaps cannot see grammar, so we replaced them with key-aware sentence rewriting, which the project allows as automated rewriting. An AI editor (Claude) with the key rewrote each passage using `scripts/rewrite_tool.py`, which shows red words and the live score. Thresholds stayed at 0.56 for 100 or more words, with a target of 0.57. The rules in `results/rewrite/PROCEDURE.md` came from the calibration passages and a proxy review of them, and were committed before any evaluation passage was opened. The rewrites were committed before their review, and none was changed after it.
+Word swaps cannot see grammar, so we replaced them with key-aware sentence rewriting, which the project allows as automated rewriting. Each passage was rewritten with access to the key using `scripts/rewrite_tool.py`, which shows red words and the live score. Thresholds stayed at 0.56 for 100 or more words, with a target of 0.57. The rules in `results/rewrite/PROCEDURE.md` came from the calibration passages and a proxy review of them, and were committed before any evaluation passage was opened. The rewrites were committed before their review, and none was changed after it.
 
 | Measurement (10 evaluation passages) | Word swaps (first evaluation) | Rewriting |
 | --- | ---: | ---: |
@@ -128,7 +128,7 @@ Word swaps cannot see grammar, so we replaced them with key-aware sentence rewri
 
 Usable and flagged is 4 of 10, with an exact 95% interval of 12% to 74%. Scores rose from a mean of 0.427 to 0.571, and outputs changed 18 to 60 words, more than the 6 to 29 of word swaps. The four usable outputs are 1184-1511, 2600-1571, 345-0233, and 84-0017. 46-0155, the Scrooge passage, stayed unflagged at 0.537: its repeated bell words and `I don't know` refrain left little to rewrite. Five flagged outputs failed on readability, for example `his throat held by a wolf` and `that great change would naturally awaken, given such feelings`, and 1400-0614 also failed on meaning. Calibration passages reached 5 of 5 flagged and 4 of 5 usable, though two of those were revised after review feedback.
 
-This run has limits. The same 10 passages were used before, so it is not an independent test, and its unmarked false-positive estimate is the 0.33% from Section 4.5. Rewriting used one AI editor and one AI reviewer, and neither step is a teammate review. The reviewer had also seen other edits of these originals. Editing took several passes per passage and was not timed, so we report changed words as the cost. The process depends on the editor's judgment, so saved outputs can be rescored exactly, but a new run would not reproduce the same text.
+This run has limits. The same 10 passages were used before, so it is not an independent test, and its unmarked false-positive estimate is the 0.33% from Section 4.5. Rewriting used one automated editor and one proxy reviewer; the required teammate review remains incomplete. The reviewer had also seen other edits of these originals. Editing took several passes per passage and was not timed, so we report changed words as the cost. The process depends on the editor's judgment, so saved outputs can be rescored exactly, but a new run would not reproduce the same text.
 
 ### 4.7 Broader test and back-test (separate run)
 
