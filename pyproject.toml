@@ -17,3 +17,8 @@ packages = ["src/wmark"]
 
 [tool.ruff]
 line-length = 120
+
+[dependency-groups]
+report = [
+    "matplotlib>=3.11.2",
+]
