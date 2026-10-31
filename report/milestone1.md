@@ -1,7 +1,5 @@
 # Milestone 1: Detector, Evaluation, and Threat Model
 
-**Draft status.** Items marked `[PENDING]` need the blind quality reviews. All other numbers come from saved runs in `results/`.
-
 ## 1. Scheme and detector
 
 We generate one random 32-byte key with `secrets.token_bytes`. HMAC-SHA256 of a normalized word under that key gives its color: the last bit of the digest, with 1 meaning green and 0 meaning red. Every occurrence of a word has the same color. A document's score is green word occurrences divided by total word occurrences, and it is flagged when the score is strictly greater than the threshold. The comparison uses exact fractions, so a score equal to the threshold is never flagged through float rounding.
@@ -40,11 +38,11 @@ The 5 query-access forgery passages (1184-1511, 1400-0614, 345-0233, 46-0155, S0
 | 0.60 | 0 of 150 | 5 of 5 |
 | 0.65 | 0 of 150 | 5 of 5 |
 
-We chose 0.55, which had no calibration false positives and flagged 4 of 5 outputs, with a target of 0.56. Three outputs reached the target. 76-0479, a dialect passage from *Huckleberry Finn*, stopped at 0.503 because few of its words have list entries. Outputs changed 9 to 24 words. Calibration quality results: `[PENDING: calibration review, 5 passages]`.
+We chose 0.55, which had no calibration false positives and flagged 4 of 5 outputs, with a target of 0.56. Three outputs reached the target. 76-0479, a dialect passage from *Huckleberry Finn*, stopped at 0.503 because few of its words have list entries. Outputs changed 9 to 24 words. No blind quality review was completed for these outputs.
 
 **Fixed settings.** Key in `secrets/watermark.key`, word rules from Section 1, threshold 0.55, target 0.56, and a 15-minute limit, frozen in commit 6964b34.
 
-**Order of work.** Evaluation was run before the calibration quality review was complete, so these settings were fixed without that evidence. `[PENDING: state whether the review would have changed the procedure]`
+**Limitation.** The settings were fixed using detection counts only, with no quality evidence.
 
 ## 4. Evaluation
 
@@ -54,7 +52,7 @@ We chose 0.55, which had no calibration false positives and flagged 4 of 5 outpu
 | --- | --- |
 | Unmarked false-positive rate | 3 / 150 = 2.0% |
 | Detection rate on watermarking outputs | 7 / 10 = 70% |
-| Usable watermarking success rate | `[PENDING: evaluation review, 10 passages]` / 10 |
+| Usable watermarking success rate | Not measured: no quality review completed |
 
 Six attempts reached the target, and passage scores rose from a mean of 0.427 to 0.552. Four stopped when edits ran out. One of those (2554-0062, 0.551) was still flagged. The other three were not: 2600-2189 (0.544), 1184-1511 (0.544), and 1400-0614 (0.491). Failures were not retried, under the fixed stopping rule. No original was flagged before watermarking.
 
@@ -64,9 +62,9 @@ Six attempts reached the target, and passage scores rose from a mean of 0.427 to
 
 ### 4.2 Quality check
 
-A teammate who did not edit a passage compares original and edited versions and answers whether the main meaning is preserved and whether the prose is readable. Scores, decisions, and target status are hidden, and passages are shuffled. Changed words are counted from a diff of normalized word sequences, where each changed block counts as its larger side. Outputs changed 6 to 29 words. Results: `[PENDING: reviewer names, answers per passage]`.
+No blind quality review was completed, so we cannot say how many outputs preserved meaning and stayed readable, and the 7 flagged outputs should not be read as usable watermarks. Blind review sheets are saved with each run. They hide scores, decisions, and target status, and shuffle the passages, so a teammate who did not edit a passage can answer whether the main meaning is preserved and whether the prose is readable. Changed words are counted from a diff of normalized word sequences, where each changed block counts as its larger side. Outputs changed 6 to 29 words.
 
-We expect `the` to `this` swaps to read as mildly unnatural, and reviewers may rate them differently. A teammate knows how the scheme works and may recognize these patterns or accept awkward wording because they know the intended edit, so their ratings may be more lenient or more alert than a stranger's. Hiding scores limits this but does not remove it.
+We expect `the` to `this` swaps to read as mildly unnatural. A teammate would also know how the scheme works and might recognize these patterns or accept awkward wording because they know the intended edit, so their ratings could be more lenient or more alert than a stranger's. Hiding scores limits this but does not remove it.
 
 ### 4.3 Length and repetition
 
@@ -107,7 +105,7 @@ We tested these settings on 1,500 fresh passages (500 per group), drawn at rando
 
 The fresh-passage rate has an exact 95% interval of 0.11% to 0.78%, or about 33 false flags per 10,000 submissions (11 to 78). This is not zero. Calibration predicted about 1 in 1,933, and the fresh passages produced more, which shows how far a tuned estimate can drift on new text. The fresh passages are independent of this design, while the repeated 150 are not, because their results prompted it. The fresh passages also share books with the evaluation set and carry the same source correlation.
 
-The cost was detection. On the same 10 watermarking passages, repeated and so not independent, 6 of 10 outputs were flagged instead of 7, with an exact interval of 26% to 88%. On the 5 calibration passages, 3 were flagged. 2554-0062 dropped out at 0.551. Quality for these outputs: `[PENDING: post-evaluation review]`.
+The cost was detection. On the same 10 watermarking passages, repeated and so not independent, 6 of 10 outputs were flagged instead of 7, with an exact interval of 26% to 88%. On the 5 calibration passages, 3 were flagged. 2554-0062 dropped out at 0.551. These outputs were not quality reviewed either.
 
 ## 5. Threat model
 
@@ -116,7 +114,7 @@ The attacker is assumed to know the algorithm, the word-processing rules, and th
 | Goal | None | Query | Key |
 | --- | --- | --- | --- |
 | Removal | **Attack:** reword blindly, or undo likely edits such as `this` back to `the`. Lookalike letters (Cyrillic `а` for Latin `a`) also give a word a new, random color. **Cost:** 0 queries, about 10 to 20 word edits. **Quality:** little harm, because reversing edits restores the source wording. **Defense:** a larger margin between target and threshold, and folding lookalike characters. **Predicted:** likely success, because flagged evaluation outputs sit 0.001 to 0.019 above the threshold and unmarked text averages 0.419 (measured). | **Attack:** swap words and keep changes that lower the score or clear the flag. **Cost:** about 1 to 3 net green-to-red swaps, so 5 to 20 queries with scores and more with binary responses. **Quality:** little harm, since few words change. **Defense:** binary responses and rate limits raise the cost but do not prevent success, because the attacker needs only one unflagged response. **Predicted:** likely success within 100 requests. | **Attack:** compute colors locally and replace green words with red synonyms. **Cost:** 0 queries needed, 1 to confirm, and 1 to 3 swaps calculated from the flagged evaluation outputs. **Quality:** little harm. **Defense:** none once the key is known, other than replacing the key. **Predicted:** near-certain success. |
-| Forgery | **Attack:** apply lookalike characters to many words so that their colors are redrawn, or try synonym edits blindly. **Cost:** 0 queries, with no way to confirm the result. **Quality:** blind synonym edits harm readability, and lookalikes are invisible but machine-detectable. **Defense:** folding lookalike characters and rejecting mixed-script words. **Predicted:** low success. Blind edits move scores toward about 0.5, which is under the threshold, so most attempts should fail. | **Attack:** learn colors by submitting one word repeated, which scores 0 or 1, then edit as the watermarker does. **Cost:** 1 preparation query per word, with a 100-query budget, plus a few editing queries. The 100 most common red words cover 40.7% of calibration tokens (measured). **Quality:** similar to watermarking, and limited by which colors were learned. **Defense:** rate limits add time but not queries. Score hiding does not help, because the flag alone reveals each color. **Predicted:** success on some passages, fewer than with the key. | **Attack:** run the watermarking procedure directly. **Cost:** 0 queries, 5 to 26 edits per passage (measured). **Quality:** same as watermarking; blind review pending. **Defense:** none once the key is known, other than replacing the key. **Measured:** the keyed procedure flagged 7 of 10 evaluation passages at 0.55. |
+| Forgery | **Attack:** apply lookalike characters to many words so that their colors are redrawn, or try synonym edits blindly. **Cost:** 0 queries, with no way to confirm the result. **Quality:** blind synonym edits harm readability, and lookalikes are invisible but machine-detectable. **Defense:** folding lookalike characters and rejecting mixed-script words. **Predicted:** low success. Blind edits move scores toward about 0.5, which is under the threshold, so most attempts should fail. | **Attack:** learn colors by submitting one word repeated, which scores 0 or 1, then edit as the watermarker does. **Cost:** 1 preparation query per word, with a 100-query budget, plus a few editing queries. The 100 most common red words cover 40.7% of calibration tokens (measured). **Quality:** similar to watermarking, and limited by which colors were learned. **Defense:** rate limits add time but not queries. Score hiding does not help, because the flag alone reveals each color. **Predicted:** success on some passages, fewer than with the key. | **Attack:** run the watermarking procedure directly. **Cost:** 0 queries, 5 to 26 edits per passage (measured). **Quality:** same as watermarking, with no blind review completed. **Defense:** none once the key is known, other than replacing the key. **Measured:** the keyed procedure flagged 7 of 10 evaluation passages at 0.55. |
 
 Word-processing rules decide which character edits matter. Case changes and zero-width characters should have no effect (**predicted**), because words are casefolded and format characters are removed before tokenizing. Inserted hyphens or digits split a word into new words, so they can change the score but are visible to a reader. NFKC does not fold Cyrillic lookalikes to Latin letters, so those edits survive normalization.
 
@@ -147,4 +145,4 @@ Key compromise is also different. Signature schemes separate private signing key
 
 ## Contribution statement
 
-See `README.md`. `[PENDING: confirm member names]`
+See `README.md`.
