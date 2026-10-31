@@ -1,0 +1,14 @@
+# Experiment settings. Choose these during calibration, then set frozen = true before evaluation.
+# Do not edit after evaluation starts; report any later design changes as separate runs.
+
+[detector]
+threshold = 0.55
+
+[watermark]
+target = 0.56
+max_seconds = 900        # 15 minutes per passage
+max_substitutions = 0    # 0 = no cap
+
+[experiment]
+frozen = true
+seed = 2026              # split and forgery-selection seed

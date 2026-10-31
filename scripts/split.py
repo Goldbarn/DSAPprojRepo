@@ -17,6 +17,9 @@ UNMARKED_PER_GROUP = 50  # 150 per set; spec requires at least 30 per group
 WM_GROUP = "100-199"
 WM_COUNT = {"calibration": 5, "evaluation": 10}
 FORGERY_COUNT = 5
+# The first calibration run scored these sources under the experiment key, so they can never move to evaluation.
+PINNED_CALIBRATION = ["1661", "23"]
+MIN_CALIBRATION_SOURCES = 6
 
 
 def needs(set_name: str) -> dict[str, int]:
@@ -41,12 +44,15 @@ def main() -> None:
     for c in candidates:
         by_source[c["source_id"]].append(c)
 
-    sources = sorted(by_source)
+    sources = sorted(set(by_source) - set(PINNED_CALIBRATION))
     rng.shuffle(sources)
+    sources = PINNED_CALIBRATION + sources
     assignment: dict[str, list[str]] = {"calibration": [], "evaluation": []}
     have = {"calibration": Counter(), "evaluation": Counter()}
     for s in sources:
-        calib_short = any(have["calibration"][g] < n for g, n in needs("calibration").items())
+        calib_short = len(assignment["calibration"]) < MIN_CALIBRATION_SOURCES or any(
+            have["calibration"][g] < n for g, n in needs("calibration").items()
+        )
         target = "calibration" if calib_short else "evaluation"
         assignment[target].append(s)
         have[target].update(c["length_group"] for c in by_source[s])

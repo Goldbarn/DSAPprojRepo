@@ -1,0 +1,50 @@
+{
+ "R01": {
+  "split": "evaluation",
+  "id": "2554-0062"
+ },
+ "R02": {
+  "split": "evaluation",
+  "id": "S05-0533"
+ },
+ "R03": {
+  "split": "calibration",
+  "id": "74-0038"
+ },
+ "R04": {
+  "split": "evaluation",
+  "id": "84-0017"
+ },
+ "R05": {
+  "split": "evaluation",
+  "id": "2600-1571"
+ },
+ "R06": {
+  "split": "evaluation",
+  "id": "514-0605"
+ },
+ "R07": {
+  "split": "evaluation",
+  "id": "345-0233"
+ },
+ "R08": {
+  "split": "evaluation",
+  "id": "1184-1511"
+ },
+ "R09": {
+  "split": "calibration",
+  "id": "76-0479"
+ },
+ "R10": {
+  "split": "evaluation",
+  "id": "46-0155"
+ },
+ "R11": {
+  "split": "evaluation",
+  "id": "2600-2189"
+ },
+ "R12": {
+  "split": "evaluation",
+  "id": "1400-0614"
+ }
+}

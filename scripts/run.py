@@ -19,7 +19,7 @@ from wmark.settings import KEY_PATH, RESULTS_DIR, SETTINGS_PATH, SPLITS_DIR, SYN
 from wmark.text import changed_words
 from wmark.watermark import load_synonyms, watermark
 
-SWEEP = [0.55, 0.60, 0.65]
+SWEEP = [0.50, 0.55, 0.60, 0.65]
 
 
 def score_unmarked(passages: list[dict], key: bytes, threshold: float) -> list[dict]:

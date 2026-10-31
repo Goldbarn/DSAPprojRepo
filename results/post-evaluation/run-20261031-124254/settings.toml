@@ -1,0 +1,16 @@
+# Post-evaluation design (v2). Reported separately from the first evaluation in results/evaluation/.
+# Prompted by the first evaluation's false positives; values chosen from calibration-source passages only.
+
+[detector]
+threshold = 0.56         # 100 or more words
+short_threshold = 0.68   # under short_below words, where scores vary more
+short_below = 100
+
+[watermark]
+target = 0.57
+max_seconds = 900        # 15 minutes per passage
+max_substitutions = 0    # 0 = no cap
+
+[experiment]
+frozen = true
+seed = 2026

@@ -27,6 +27,7 @@ def rate(k: int, n: int) -> str:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("run_dir", type=Path)
+    parser.add_argument("--pending", action="store_true", help="summarize before the quality review is finished")
     args = parser.parse_args()
 
     unmarked = read_csv(args.run_dir / "unmarked_scores.csv")
@@ -34,7 +35,7 @@ def main() -> None:
     review = {r["id"]: r for r in read_csv(args.run_dir / "review_sheet.csv")}
 
     missing = [pid for pid, r in review.items() if not (r["meaning_preserved"] and r["readable"] and r["reviewer"])]
-    if missing:
+    if missing and not args.pending:
         raise SystemExit(f"review sheet incomplete for: {', '.join(missing)}")
 
     flagged_unmarked = sum(truthy(r["flagged"]) for r in unmarked)
@@ -47,7 +48,7 @@ def main() -> None:
     lines += [
         f"- Unmarked false-positive rate: {rate(flagged_unmarked, len(unmarked))}",
         f"- Detection rate on watermarking outputs: {rate(flagged_wm, len(wm))}",
-        f"- Usable watermarking success rate: {rate(usable_flagged, len(wm))}",
+        f"- Usable watermarking success rate: {'pending review' if missing else rate(usable_flagged, len(wm))}",
         f"- Attempts reaching the target: {reached}/{len(wm)}",
         f"- Unmarked source documents: {len({r['source_id'] for r in unmarked})}",
         "",

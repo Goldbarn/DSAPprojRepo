@@ -1,0 +1,6 @@
+id,source_id,total,distinct_before,distinct_after,score_before,flagged_before,green_after,score_after,flagged_after,reached_target,stop_reason,substitutions,changed_words,elapsed_seconds
+76-0479,76,187,112,110,0.414894,False,94,0.502674,False,False,no_more_candidates,17,17,0.009
+74-0038,74,192,119,120,0.456410,False,108,0.562500,True,True,target_reached,22,24,0.011
+1661-0077,1661,138,94,94,0.446809,False,77,0.557971,True,False,no_more_candidates,17,20,0.007
+74-0221,74,112,78,78,0.407080,False,63,0.562500,True,True,target_reached,18,19,0.005
+74-0206,74,103,69,70,0.490385,False,59,0.572816,True,True,target_reached,8,9,0.005
