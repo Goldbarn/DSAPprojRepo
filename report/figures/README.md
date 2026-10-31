@@ -1,8 +1,9 @@
 # Report figures
 
-Regenerate with `uv run --group report python scripts/figures.py` (run `scripts/threshold_pool.py` first if the pool CSV is missing).
+Run `uv run --group report python scripts/figures.py`.
+If the pool CSV is missing, run `uv run python scripts/threshold_pool.py` first.
 
-| File | Suggested caption |
+| File | Caption |
 | --- | --- |
 | `score_distribution.png` | Green fractions of 1,500 fresh unmarked passages by length group. Short passages spread much wider, so one threshold cannot suit all lengths. |
 | `threshold_choice.png` | Flagged share of 1,933 calibration-source passages at each threshold. Nearly all false positives above 0.56 are under 100 words. |

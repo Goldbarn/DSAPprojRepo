@@ -1,13 +1,13 @@
 # Keyed Text Watermarking
 
-Word-based keyed watermarking, detection, attacks, and deployment policy. See `project-description-2026-fall.md`.
+Keyed word watermarking and experiment scripts. See `project-description-2026-fall.md`.
 
 ## Setup
 
 Requires Python 3.13+ and [uv](https://docs.astral.sh/uv/). No third-party runtime dependencies.
 
 ```sh
-uv sync
+uv sync --group report
 uv run wm keygen          # once; writes secrets/watermark.key (demonstration key)
 ```
 
@@ -33,7 +33,7 @@ PYTHONPATH=scripts uv run python scripts/run_v2.py   # -> results/post-evaluatio
 uv run --group report python scripts/figures.py      # -> report/figures/
 ```
 
-Before a review is finished, `scripts/report.py --pending <run_dir>` writes the summary without usability results.
+Use `scripts/report.py --pending <run_dir>` for a summary before usability review.
 `scripts/check_watermark.py` is a self-check for the watermarking edits.
 
 Ad hoc use:
@@ -75,7 +75,7 @@ Watermarked output is the preprocessed text (NFKC, Cf removed) with substitution
 
 ## Data sources
 
-46 Project Gutenberg books. Rows come from `data/sources/sources.csv`; which sources each set uses is in `data/splits/manifest.json`.
+46 Project Gutenberg books. Sources: `data/sources/sources.csv`. Split assignments: `data/splits/manifest.json`.
 
 | Source ID | Title | Author | URL | License |
 | --- | --- | --- | --- | --- |
