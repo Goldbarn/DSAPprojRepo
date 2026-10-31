@@ -101,10 +101,11 @@ def watermark(
         if not options or used.intersection(range(i, j)) or (j - i > 1 and not phrase_fits(pre, matches, i, j)):
             continue
         choice = max(options, key=lambda s: sum(word_color(w, key) == GREEN for w in words(s)))
+        replacement = words(choice)
         new_green = green - sum(colors[n] == GREEN for n in range(i, j)) + sum(
-            word_color(w, key) == GREEN for w in words(choice)
+            word_color(w, key) == GREEN for w in replacement
         )
-        new_total = total - (j - i) + len(words(choice))
+        new_total = total - (j - i) + len(replacement)
         if new_green * total <= green * new_total:
             continue
         edits[i] = (j, match_case(matches[i].group(), choice))

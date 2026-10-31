@@ -1,13 +1,4 @@
-"""Tokenization and normalization rules shared by watermarking and detection.
-
-Rules (see README "Word processing"):
-1. Unicode NFKC normalization.
-2. Curly/modifier apostrophes become ASCII "'".
-3. Format characters (Unicode category Cf: zero-width space/joiner, soft hyphen, BOM, ...) are removed.
-4. A word is a run of letters, optionally joined by internal apostrophes ("don't", "o'clock").
-   Digits, underscores, punctuation, and hyphens separate words and are not words themselves.
-5. Each word is casefolded.
-"""
+"""Shared word processing rules, documented in README.md."""
 
 import difflib
 import re
