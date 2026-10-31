@@ -1,0 +1,13 @@
+label,meaning_preserved,readable,notes
+R01,yes,no,"Several jarring choices: ""They too would be here,"" ""some new babe,"" and ""what a hand she has over you."""
+R02,yes,no,"""that great change would naturally awaken, given such feelings"" is grammatically broken; ""They have come back! he felt"" is awkward."
+R03,yes,yes,"The sequence, Tom's delight, and the surprise punishment remain clear; the prose reads naturally overall."
+R04,yes,yes,"The stranger's recovery and the narrator's longing for friendship remain intact in readable period prose."
+R05,yes,yes,"The political argument and its supporting claims remain clear, with syntax consistent with the original's long sentence."
+R06,yes,no,"""his throat held by a wolf"" and ""young gentlemen, of tiny feet and big eyes"" are jarring constructions."
+R07,yes,yes,"The operation, secrecy, motives, and timing remain clear; unusual constructions fit the original speaker's style."
+R08,yes,yes,"The inheritance relationships and hypothetical consequences of taking the veil remain clear and readable."
+R09,yes,no,"""hold her from falling over,"" ""we was plumb done,"" and ""set into that grindstone"" accumulate awkward substitutions beyond the original dialect."
+R10,yes,no,"""every church ringing out its lustiest peals he had ever heard"" has a broken comparative construction."
+R11,yes,no,"""his voice having some metallic ring,"" ""hung without hope,"" and repeated ""that fellow"" create conspicuously awkward prose."
+R12,no,no,"""to fix that upon him"" loses the clear meaning of associating the occupation with him and introduces a jarring idiom."
