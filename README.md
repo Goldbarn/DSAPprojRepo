@@ -37,6 +37,12 @@ Sentence rewriting (separate run): `results/rewrite/PROCEDURE.md` has the rules,
 
 Broader test: `scripts/sample_fresh_wm.py` draws the 20 new passages, and `scripts/backtest.py` reruns word swaps and thresholds into `results/backtest/`.
 
+100-passage rewriting test: see `results/rewrite/LARGE_TEST.md`. The frozen cohort and outputs are in
+`results/rewrite/large-test/`. Run `uv run python scripts/score_large_rewrite.py` after all outputs are ready
+to freeze their hashes, score detection, and build the blind review packet. Usability remains pending teammate review.
+Run `uv run python scripts/check_large_rewrite.py` to check scoring and output-freeze safeguards.
+This additional experiment and its follow-up review can wait until after Milestone 1.
+
 Use `scripts/report.py --pending <run_dir>` for a summary before usability review.
 `scripts/check_watermark.py` is a self-check for the watermarking edits.
 

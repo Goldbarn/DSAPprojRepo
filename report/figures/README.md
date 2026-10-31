@@ -1,6 +1,7 @@
 # Report figures
 
 Run `uv run --group report python scripts/figures.py`.
+Run `uv run --group report python scripts/rewrite_figures.py` for the additional saved-result charts.
 If the pool CSV is missing, run `uv run python scripts/threshold_pool.py` first.
 
 | File | Caption |
@@ -11,3 +12,9 @@ If the pool CSV is missing, run `uv run python scripts/threshold_pool.py` first.
 | `watermarking_scores.png` | Scores before and after watermarking for the 10 evaluation passages at threshold 0.55. Hollow markers were not flagged. |
 | `method_comparison.png` | Word swaps and sentence rewriting on the 10 evaluation passages. Quality answers come from a proxy reviewer. |
 | `broader_test.png` | All three methods on 20 new passages, one per book. Quality answers come from separate proxy reviewers. |
+| `rewrite_outcomes.png` | Original and rewritten scores, plus score increase versus changed-word count, for the 20 fresh passages. Colors separate detection and proxy quality outcomes. The dashed line is the 0.56 threshold. |
+| `full_pool_false_positives.png` | False-positive percentages and counts by length for all 19,558 remaining evaluation-source passages. Books contribute correlated passages. |
+| `large_rewrite_detection.png` | Scores and editing cost for the 100-passage run, colored by detection only. Independent quality review is pending. Generated when the large-test score file exists. |
+
+`rewrite_outcomes.csv` contains the joined scores and proxy quality answers used by the outcome chart.
+The additional charts are optional report assets; they are not inserted into the already overlength report.

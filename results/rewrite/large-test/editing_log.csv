@@ -1,0 +1,101 @@
+id,editor,elapsed_seconds,stop_reason
+35-0023,batch_1,131.768,quality_priority_miss_shared_batch_timing
+S20-0221,batch_1,131.768,quality_priority_miss_shared_batch_timing
+145-1043,batch_1,131.768,original_already_at_target
+5200-0002,batch_1,131.768,quality_priority_miss_shared_batch_timing
+S10-0041,batch_1,131.768,quality_priority_miss_shared_batch_timing
+33-0020,batch_1,25.602,quality_priority_original_retained
+S23-0005,batch_1,23.572,quality_priority_original_retained
+S11-0152,batch_1,20.499,quality_priority_original_retained
+S05-0002,batch_1,10.25,distinctive_phrasing_original_retained
+S21-0236,batch_1,40.832,quality_priority_miss
+55-0173,batch_1,29.272,quality_priority_miss
+174-0323,batch_1,18.908,quality_priority_original_retained
+S19-0011,batch_1,24.839,quality_priority_miss
+345-0068,batch_1,13.492,distinctive_phrasing_original_retained
+2701-0128,batch_1,14.049,quality_priority_original_retained
+120-0323,batch_1,15.154,quality_priority_original_retained
+1080-0008,batch_1,15.717,quality_priority_original_retained
+S26-0140,batch_1,14.42,quality_priority_original_retained
+768-0026,batch_1,14.422,quality_priority_original_retained
+1260-0980,batch_1,16.425,quality_priority_miss
+514-0107,batch_1,17.355,quality_priority_original_retained
+205-0083,batch_1,15.687,quality_priority_original_retained
+S24-0080,batch_1,19.167,quality_priority_original_retained
+S27-0008,batch_1,14.837,quality_priority_original_retained
+2554-0284,batch_1,18.976,voice_priority_original_retained
+S25-0020,batch_1,14.877,quality_priority_original_retained
+1952-0029,batch_1,14.173,voice_priority_original_retained
+S22-0002,batch_1,13.661,quality_priority_original_retained
+2600-0404,batch_1,24.068,quality_priority_miss
+S18-0008,batch_1,20.75,voice_priority_original_retained
+45-0338,batch_1,13.532,quality_priority_miss
+46-0083,batch_1,13.2,voice_priority_original_retained
+84-0140,batch_1,13.991,quality_priority_original_retained
+S28-0389,batch_1,15.208,quality_priority_original_retained
+43-0050,batch_2,39.1,natural rewrite retained below threshold; further edits risk voice
+11-0143,batch_2,39.1,original retained; preserve verse and refrain
+1342-0338,batch_2,39.1,natural rewrite retained below threshold; further edits risk voice
+1184-1175,batch_2,39.1,natural rewrite retained below threshold; further edits risk voice
+1400-0494,batch_2,51.3,natural rewrite retained below threshold; further edits risk voice
+S29-0011,batch_2,51.3,natural rewrite retained below threshold; further edits risk voice
+S29-0032,batch_2,51.3,flagged; preserve natural phrasing below target
+120-0080,batch_2,51.3,natural rewrite retained below threshold; further edits risk voice
+S25-0059,batch_2,16.5,target reached; restored original wording for margin
+345-0497,batch_2,8.2,original retained; preserve distinctive dialect
+2701-0449,batch_2,25.7,target reached; restored original phrasing
+46-0125,batch_2,7.8,original retained; preserve idioms and dialect
+33-0059,batch_2,17.0,natural rewrite retained below threshold; preserve distinctive speech
+11-0005,batch_2,10.5,natural rewrite retained below threshold; preserve childlike monologue
+1260-0353,batch_2,15.8,flagged; restored original descriptive phrasing
+55-0119,batch_2,20.8,natural rewrite retained below threshold
+1184-2396,batch_2,23.9,natural rewrite retained; below short-output threshold
+514-0929,batch_2,19.7,target reached; original phrase restored
+2600-1079,batch_2,20.2,original retained after scored revision; preserve voice with little score gain
+S20-0014,batch_2,6.1,original retained; table of contents titles and dates fixed
+768-0119,batch_2,8.9,original retained; preserve fragmented dialogue and voice
+1080-0005,batch_2,16.1,natural rewrite retained below threshold; preserve satire and figures
+S11-0125,batch_2,14.7,original retained after scored revision; preserve frantic dialogue
+1342-0374,batch_2,13.9,natural rewrite retained below short-output threshold; preserve dialogue
+5200-0014,batch_2,41.7,flagged; stopped below target to preserve natural phrasing
+S10-0050,batch_2,9.4,original retained; preserve interrupted dialogue and distinctive phrasing
+S26-0185,batch_2,13.9,natural rewrite retained below threshold; quotation preserved
+1952-0008,batch_2,14.9,original retained after scored revision; preserve distinctive imagery and voice
+S19-0014,batch_2,20.3,natural rewrite retained below threshold; scientific details and citations preserved
+35-0050,batch_2,19.2,natural rewrite retained below short-output threshold
+43-0032,batch_2,8.9,original retained; preserve emphatic dialogue and speech verbs
+45-0122,batch_2,14.3,natural rewrite retained below short-output threshold
+S28-0179,batch_2,19.9,natural rewrite retained below threshold; preserve argument and period
+84-0053,batch_3,88,readability_limit_original_retained
+S21-0251,batch_3,88,readability_limit_original_retained
+S23-0008,batch_3,88,readability_limit_original_retained
+205-0038,batch_3,88,readability_limit_original_retained
+2554-0278,batch_3,88,readability_limit_original_retained
+S05-0266,batch_3,48,readability_limit_miss
+S22-0272,batch_3,48,readability_limit_miss
+1400-0743,batch_3,48,target_reached
+174-0227,batch_3,48,readability_limit_miss
+145-0710,batch_3,48,readability_limit_original_retained
+S18-0017,batch_3,48,readability_limit_original_retained
+S24-0023,batch_3,48,readability_limit_original_retained
+S27-0032,batch_3,48,readability_limit_original_retained
+S11-0005,batch_3,25,readability_limit_original_retained
+43-0062,batch_3,15,readability_limit_original_retained
+145-0797,batch_3,16,readability_limit_original_retained
+S27-0131,batch_3,19,readability_limit_original_retained
+2600-3026,batch_3,17,readability_limit_original_retained
+514-0017,batch_3,34,target_reached
+1952-0026,batch_3,21,readability_limit_original_retained
+174-0065,batch_3,27,readability_limit_original_retained
+S10-0011,batch_3,20,readability_limit_original_retained
+S21-0281,batch_3,40,target_reached
+S22-0221,batch_3,15,readability_limit_original_retained
+1080-0014,batch_3,51,target_reached
+S20-0029,batch_3,54,target_reached
+55-0014,batch_3,19,readability_limit_original_retained
+33-0221,batch_3,23,readability_limit_original_retained
+S18-0197,batch_3,16,readability_limit_original_retained
+120-0350,batch_3,34,target_reached
+11-0074,batch_3,35,target_reached
+S24-0050,batch_3,16,readability_limit_original_retained
+S25-0047,batch_3,26,readability_limit_original_retained
