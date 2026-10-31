@@ -10,5 +10,5 @@ max_seconds = 900        # 15 minutes per passage
 max_substitutions = 0    # 0 = no cap
 
 [experiment]
-frozen = false
+frozen = true
 seed = 2026              # split and forgery-selection seed
