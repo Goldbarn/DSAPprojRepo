@@ -35,6 +35,8 @@ uv run --group report python scripts/figures.py      # -> report/figures/
 
 Sentence rewriting (separate run): `results/rewrite/PROCEDURE.md` has the rules, and `scripts/rewrite_tool.py` shows word colors and scores saved rewrites.
 
+Broader test: `scripts/sample_fresh_wm.py` draws the 20 new passages, and `scripts/backtest.py` reruns word swaps and thresholds into `results/backtest/`.
+
 Use `scripts/report.py --pending <run_dir>` for a summary before usability review.
 `scripts/check_watermark.py` is a self-check for the watermarking edits.
 

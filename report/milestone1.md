@@ -130,6 +130,32 @@ Usable and flagged is 4 of 10, with an exact 95% interval of 12% to 74%. Scores 
 
 This run has limits. The same 10 passages were used before, so it is not an independent test, and its unmarked false-positive estimate is the 0.33% from Section 4.5. Rewriting used one AI editor and one AI reviewer, and neither step is a teammate review. The reviewer had also seen other edits of these originals. Editing took several passes per passage and was not timed, so we report changed words as the cost. The process depends on the editor's judgment, so saved outputs can be rescored exactly, but a new run would not reproduce the same text.
 
+### 4.7 Broader test and back-test (separate run)
+
+To check Sections 4.5 and 4.6 on more text, we drew 20 new watermarking passages, one from each of 20 different books, none used or scored before. The rewriting rules were tightened with lessons from the 4.6 review and committed before these passages were opened. Both word-swap designs ran on the same 20 passages, and a separate reviewer judged each method, so no reviewer saw an original twice. No output was changed after review. Rewriting uses thresholds 0.56 and 0.68, word swaps v1 uses 0.55, and word swaps v2 uses 0.56.
+
+| Measurement (20 passages) | Word swaps v1 | Word swaps v2 | Rewriting |
+| --- | ---: | ---: | ---: |
+| Flagged | 12 | 9 | 12 |
+| Meaning preserved (proxy review) | 11 | 7 | 17 |
+| Readable (proxy review) | 2 | 1 | 14 |
+| Usable and flagged | 1 | 0 | 6 |
+
+Rewriting's usable rate is 6 of 20, or 30%, with an exact 95% interval of 12% to 54%. Combined with Section 4.6 it is 10 of 30, though the first 10 were reused passages. On these paired passages, rewriting beat word swaps v2 on 6 passages and lost on none (sign test, two-sided p of about 0.03). Against v1 it won 5 and lost none (p of about 0.06). The results support rewriting over word swaps, but 20 passages cannot fix its rate precisely.
+
+Text type mattered most, and we grouped passages after seeing the results, so this pattern needs its own test. Of 11 narrative passages, rewriting flagged 10 and 5 were usable. Of 9 expository passages, it flagged only 2 and 1 was usable. Exposition reviewed well: 6 unflagged expository outputs passed both quality questions but stayed below the threshold. Its wording carries the logic, so it offers fewer safe rewrites. This is a real limit of the method.
+
+For false positives, we scored all 19,558 remaining candidates from evaluation sources.
+
+| Length group | Tested | Single 0.55 | Length-based |
+| --- | ---: | ---: | ---: |
+| 30-99 | 6,544 | 327 | 3 |
+| 100-199 | 6,499 | 60 | 43 |
+| 200-400 | 6,515 | 11 | 9 |
+| All | 19,558 | 398 (2.04%) | 55 (0.28%) |
+
+These rates match the 2.33% and 0.33% from Section 4.5. Passages from one book are correlated, so the sample's precision is lower than its size suggests. Nearly all remaining false positives are in passages of 100 or more words, at the lower 0.56 threshold.
+
 ## 5. Threat model
 
 The attacker is assumed to know the algorithm, the word-processing rules, and the threshold. Costs below use the first evaluation settings (threshold 0.55, target 0.56). **Predicted** marks an expectation not yet tested. **Measured** marks a result from Section 3 or 4. Milestone 2 tests query-access removal, query-access forgery, and key-access forgery.
@@ -139,7 +165,7 @@ The attacker is assumed to know the algorithm, the word-processing rules, and th
 | Removal | **Attack:** reword blindly, or undo likely edits such as `this` back to `the`. Lookalike letters (Cyrillic `а` for Latin `a`) also give a word a new, random color. **Cost:** 0 queries, about 10 to 20 word edits. **Quality:** little harm, because reversing edits restores the source wording. **Defense:** a larger margin between target and threshold, and folding lookalike characters. **Predicted:** likely success, because flagged evaluation outputs sit 0.001 to 0.019 above the threshold and unmarked text averages 0.419 (measured). | **Attack:** swap words and keep changes that lower the score or clear the flag. **Cost:** about 1 to 3 net green-to-red swaps, so 5 to 20 queries with scores and more with binary responses. **Quality:** little harm, since few words change. **Defense:** binary responses and rate limits raise the cost but do not prevent success, because the attacker needs only one unflagged response. **Predicted:** likely success within 100 requests. | **Attack:** compute colors locally and replace green words with red synonyms. **Cost:** 0 queries needed, 1 to confirm, and 1 to 3 swaps calculated from the flagged evaluation outputs. **Quality:** little harm. **Defense:** none once the key is known, other than replacing the key. **Predicted:** near-certain success. |
 | Forgery | **Attack:** apply lookalike characters to many words so that their colors are redrawn, or try synonym edits blindly. **Cost:** 0 queries, with no way to confirm the result. **Quality:** blind synonym edits harm readability, and lookalikes are invisible but machine-detectable. **Defense:** folding lookalike characters and rejecting mixed-script words. **Predicted:** low success. Blind edits move scores toward about 0.5, which is under the threshold, so most attempts should fail. | **Attack:** learn colors by submitting one word repeated, which scores 0 or 1, then edit as the watermarker does. **Cost:** 1 preparation query per word, with a 100-query budget, plus a few editing queries. The 100 most common red words cover 40.7% of calibration tokens (measured). **Quality:** similar to watermarking, and limited by which colors were learned. **Defense:** rate limits add time but not queries. Score hiding does not help, because the flag alone reveals each color. **Predicted:** success on some passages, fewer than with the key. | **Attack:** run the watermarking procedure directly. **Cost:** 0 queries, 5 to 26 edits per passage (measured). **Quality:** poor with word swaps (0 of 10 usable) and better with rewriting (4 of 10, measured). **Defense:** none once the key is known, other than replacing the key. **Measured:** the keyed procedure flagged 7 of 10 evaluation passages at 0.55, but none passed the proxy review. Sentence rewriting gave 9 of 10 flagged and 4 of 10 usable (Section 4.6), so a key holder can forge with careful editing. |
 
-Removal starts from a flagged, usable output. Word swaps produced no such output (Section 4.2). Rewriting produced 4 (Section 4.6), which are the eligible starting passages for query-access removal.
+Removal starts from a flagged, usable output. Word swaps produced no such output (Section 4.2). Rewriting produced 4 of the 10 evaluation passages (Section 4.6), which are the eligible starting passages for query-access removal, and 6 more on new passages (Section 4.7).
 
 Word-processing rules decide which character edits matter. Case changes and zero-width characters should have no effect (**predicted**), because words are casefolded and format characters are removed before tokenizing. Inserted hyphens or digits split a word into new words, so they can change the score but are visible to a reader. NFKC does not fold Cyrillic lookalikes to Latin letters, so those edits survive normalization.
 
