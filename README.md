@@ -69,7 +69,7 @@ Watermarked output is the preprocessed text (NFKC, Cf removed) with substitution
 | `data/sources/` | Raw source texts and `sources.csv` |
 | `data/splits/` | Calibration/evaluation sets and `manifest.json` |
 | `data/synonyms.json` | Hand-built synonym list; order is the edit order |
-| `results/` | Saved runs, one directory per run |
+| `results/` | Saved runs, one directory per run; `results/proxy-review/` holds the AI proxy quality review |
 | `report/` | Milestone reports; PNG charts in `report/figures/` |
 | `secrets/` | Demonstration watermark key |
 
@@ -130,6 +130,8 @@ Watermarked output is the preprocessed text (NFKC, Cf removed) with substitution
 
 | Member | Work | Commits |
 | --- | --- | --- |
-| Goldbarn (Rowan) | First source list, first split, key generation, first calibration run | [c8b9738](https://github.com/Goldbarn/DSAPprojRepo/commit/c8b9738), [260107d](https://github.com/Goldbarn/DSAPprojRepo/commit/260107d) |
+| Rowan (Goldbarn) | First source list, first split, key generation, first calibration run | [c8b9738](https://github.com/Goldbarn/DSAPprojRepo/commit/c8b9738), [260107d](https://github.com/Goldbarn/DSAPprojRepo/commit/260107d) |
 | Wil N | Second source list, including the nonfiction sources | [37c28d8](https://github.com/Goldbarn/DSAPprojRepo/commit/37c28d8) |
-| Yoyojesus | Package setup, detector, watermarker, pipeline scripts, merged data, expanded synonym list, calibration and evaluation runs, figures, report drafting | [6512aea](https://github.com/Goldbarn/DSAPprojRepo/commit/6512aea), [bc2165d](https://github.com/Goldbarn/DSAPprojRepo/commit/bc2165d), [8214a75](https://github.com/Goldbarn/DSAPprojRepo/commit/8214a75), [58b4da5](https://github.com/Goldbarn/DSAPprojRepo/commit/58b4da5), [c721687](https://github.com/Goldbarn/DSAPprojRepo/commit/c721687), [7691143](https://github.com/Goldbarn/DSAPprojRepo/commit/7691143) |
+| Austin (Yoyojesus) | Package setup, detector, watermarker, pipeline scripts, merged data, expanded synonym list, calibration and evaluation runs, figures, report drafting | [6512aea](https://github.com/Goldbarn/DSAPprojRepo/commit/6512aea), [bc2165d](https://github.com/Goldbarn/DSAPprojRepo/commit/bc2165d), [8214a75](https://github.com/Goldbarn/DSAPprojRepo/commit/8214a75), [58b4da5](https://github.com/Goldbarn/DSAPprojRepo/commit/58b4da5), [c721687](https://github.com/Goldbarn/DSAPprojRepo/commit/c721687), [7691143](https://github.com/Goldbarn/DSAPprojRepo/commit/7691143) |
+
+Claude Code and GPT models assisted with code, data preparation, report drafting, and simplification. GPT-6.1 acted as a proxy quality reviewer, because no teammate review was completed.
