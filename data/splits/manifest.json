@@ -1,0 +1,71 @@
+{
+  "seed": 2026,
+  "sources": {
+    "calibration": [
+      "S13",
+      "S09",
+      "S07"
+    ],
+    "evaluation": [
+      "S03",
+      "S27",
+      "S06",
+      "S22",
+      "S24",
+      "S29",
+      "S05",
+      "S12",
+      "S02",
+      "S10",
+      "S01",
+      "S25",
+      "S15",
+      "S16",
+      "S26",
+      "S19",
+      "S14",
+      "S18",
+      "S23",
+      "S20",
+      "S08",
+      "S30",
+      "S21",
+      "S28",
+      "S17",
+      "S11",
+      "S04"
+    ]
+  },
+  "counts": {
+    "calibration": {
+      "unmarked": 150,
+      "unmarked_by_group": {
+        "30-99": 50,
+        "100-199": 50,
+        "200-400": 50
+      },
+      "wm": 5,
+      "source_documents": 3
+    },
+    "evaluation": {
+      "unmarked": 150,
+      "unmarked_by_group": {
+        "30-99": 50,
+        "100-199": 50,
+        "200-400": 50
+      },
+      "wm": 10,
+      "source_documents": 24
+    }
+  },
+  "forgery": {
+    "ids": [
+      "S03-0125",
+      "S04-0197",
+      "S04-0500",
+      "S06-0437",
+      "S15-0230"
+    ],
+    "method": "random.Random(2026) draw of 5 from the 10 evaluation watermarking passages, made after the split and before any detector scoring"
+  }
+}
