@@ -1,0 +1,6 @@
+id,source_id,total,distinct_before,distinct_after,score_before,flagged_before,green_after,score_after,flagged_after,reached_target,stop_reason,substitutions,changed_words,elapsed_seconds
+1661-0194,1661,174,109,109,0.304598,False,53,0.304598,False,False,no_more_candidates,0,0,0.002
+1661-0269,1661,107,78,78,0.523364,False,56,0.523364,False,False,no_more_candidates,0,0,0.001
+1661-0275,1661,113,87,87,0.389381,False,44,0.389381,False,False,no_more_candidates,0,0,0.001
+1661-0290,1661,164,115,115,0.414634,False,68,0.414634,False,False,no_more_candidates,0,0,0.002
+23-0017,23,166,107,107,0.403614,False,67,0.403614,False,False,no_more_candidates,0,0,0.002

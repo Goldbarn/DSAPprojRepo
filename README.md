@@ -21,7 +21,7 @@ uv run python scripts/split.py              # -> data/splits/*, manifest.json (r
 # 2. Calibrate (repeat as needed; each run is saved separately)
 uv run python scripts/run.py calibration    # -> results/calibration/run-*/
 #    teammate fills review_sheet.csv blind, then:
-uv run python scripts/report.py results/calibration/run-<timestamp>
+uv run python scripts/report.py results/calibration run-<timestamp>
 
 # 3. Fix settings: edit config/settings.toml, set frozen = true, commit
 uv run python scripts/run.py evaluation
