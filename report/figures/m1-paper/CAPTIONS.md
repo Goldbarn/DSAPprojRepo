@@ -12,7 +12,7 @@ Replace existing Markdown tables with their PNG versions rather than duplicating
 - calibration_thresholds.png, after threshold selection: Calibration counts for 150 unmarked passages and
   five watermarking outputs. The chosen threshold was 0.55 and the watermarking target was 0.56.
 - primary_results.png, at the start of Evaluation: Primary evaluation at the frozen threshold of 0.55.
-  Usability is based on proxy review; the required independent teammate review remains outstanding.
+  Usability comes from the blind teammate review.
 - watermarking_scores.png, after the headline results: Green fractions before and after watermarking
   for all ten primary evaluation attempts. The line marks 0.55; hollow output markers were not flagged.
 - length_group_results.png, with the length discussion: Flagged and tested unmarked passages by

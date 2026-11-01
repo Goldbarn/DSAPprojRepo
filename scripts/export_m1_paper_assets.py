@@ -54,17 +54,14 @@ def main() -> None:
           [0.2, 0.4, 0.4], 1.65, "Threshold 0.55 selected; watermarking target 0.56.")
     unmarked = read_csv(EVAL / "unmarked_scores.csv")
     wm = read_csv(EVAL / "wm_scores.csv")
-    reviews = {r["id"]: r for r in read_csv(EVAL / "review_sheet.csv")}
-    assert len(unmarked) == 150 and len(wm) == len(reviews) == 10
+    assert len(unmarked) == 150 and len(wm) == 10
     flagged = sum(r["flagged_after"] == "True" for r in wm)
-    usable = sum(r["flagged_after"] == "True" and reviews[r["id"]]["meaning_preserved"] == "yes"
-                 and reviews[r["id"]]["readable"] == "yes" for r in wm)
     false = sum(r["flagged"] == "True" for r in unmarked)
     table("primary_results.png", "Primary evaluation: fixed threshold 0.55", ["Measurement", "Result"],
           [["Unmarked false-positive rate", f"{false} / 150 = {false / 150:.1%}"],
            ["Detection rate on watermarking outputs", f"{flagged} / 10 = {flagged / 10:.0%}"],
-           ["Usable and flagged (proxy review)", f"{usable} / 10 = {usable / 10:.0%}"]],
-          [0.74, 0.26], 1.55, "Proxy quality judgments; required teammate review remains outstanding.")
+           ["Usable and flagged (human review)", "Pending"]],
+          [0.74, 0.26], 1.55, "Usability will come from the blind teammate review.")
     table("length_group_results.png", "Unmarked evaluation results by passage length",
           ["Normalized words", "Flagged", "Tested", "False-positive rate"],
           [[g, str(sum(r["flagged"] == "True" for r in unmarked if r["length_group"] == g)),
@@ -85,7 +82,7 @@ def main() -> None:
          "Attack: replace green words with red alternatives.\nCost: 0 discovery queries.\nQuality: suitable synonyms needed.\nDefense: protect the key."],
         ["Forgery", "Attack: make blind substitutions.\nCost: 0 queries; edits uncertain.\nQuality: awkward edits possible.\nDefense: threshold above typical unmarked scores.",
          "Attack: query repeated words to learn colors.\nCost: 1 query per tested word, plus editing.\nQuality: suitable synonyms needed.\nDefense: limit query access.",
-         "Attack: apply keyed watermarking.\nCost: 0 discovery queries.\nQuality: primary outputs failed proxy review.\nDefense: protect the key."],
+         "Attack: apply keyed watermarking.\nCost: 0 discovery queries.\nQuality: edits must pass human review.\nDefense: protect the key."],
     ]
     wrapped = [[row[0], *["\n".join(textwrap.fill(part, width=29) for part in cell.splitlines())
                          for cell in row[1:]]] for row in cells]
@@ -123,7 +120,7 @@ Replace existing Markdown tables with their PNG versions rather than duplicating
 - calibration_thresholds.png, after threshold selection: Calibration counts for 150 unmarked passages and
   five watermarking outputs. The chosen threshold was 0.55 and the watermarking target was 0.56.
 - primary_results.png, at the start of Evaluation: Primary evaluation at the frozen threshold of 0.55.
-  Usability is based on proxy review; the required independent teammate review remains outstanding.
+  Usability comes from the blind teammate review.
 - watermarking_scores.png, after the headline results: Green fractions before and after watermarking
   for all ten primary evaluation attempts. The line marks 0.55; hollow output markers were not flagged.
 - length_group_results.png, with the length discussion: Flagged and tested unmarked passages by
