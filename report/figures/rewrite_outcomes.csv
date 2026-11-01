@@ -1,0 +1,21 @@
+id,source_id,total,distinct_before,distinct_after,score_before,flagged_before,green_after,score_after,flagged_after,reached_target,changed_words,meaning_preserved,readable,outcome
+1400-0503,1400,122,87,85,0.515873,False,71,0.581967,True,True,16,yes,yes,Usable and flagged
+S19-0026,S19,131,107,101,0.364865,False,63,0.480916,False,False,44,yes,yes,"Quality passed, not flagged"
+1342-0203,1342,169,108,110,0.436047,False,102,0.603550,True,True,53,no,no,"Flagged, quality failed"
+1080-0011,1080,112,77,81,0.394737,False,63,0.562500,True,False,35,yes,no,"Flagged, quality failed"
+514-0689,514,112,86,82,0.414634,False,63,0.562500,True,False,37,yes,no,"Flagged, quality failed"
+S05-0401,S05,106,85,79,0.398305,False,60,0.566038,True,False,51,yes,yes,Usable and flagged
+2554-0368,2554,123,84,85,0.410853,False,69,0.560976,True,False,45,yes,no,"Flagged, quality failed"
+S24-0017,S24,166,109,108,0.411429,False,86,0.518072,False,False,32,no,yes,Neither
+S23-0017,S23,130,90,90,0.435374,False,70,0.538462,False,False,45,yes,yes,"Quality passed, not flagged"
+S21-0284,S21,116,85,86,0.487805,False,65,0.560345,True,False,21,yes,yes,Usable and flagged
+46-0047,46,125,93,95,0.368852,False,60,0.480000,False,False,37,yes,no,Neither
+S27-0086,S27,195,117,116,0.412060,False,93,0.476923,False,False,19,yes,yes,"Quality passed, not flagged"
+174-0185,174,175,108,114,0.446927,False,99,0.565714,True,False,43,yes,yes,Usable and flagged
+1952-0023,1952,96,74,71,0.418182,False,56,0.583333,True,True,36,no,yes,"Flagged, quality failed"
+5200-0005,5200,104,82,78,0.500000,False,63,0.605769,True,True,25,yes,yes,Usable and flagged
+S28-0383,S28,112,75,76,0.367521,False,51,0.455357,False,False,20,yes,yes,"Quality passed, not flagged"
+1184-2678,1184,106,79,83,0.449541,False,60,0.566038,True,False,38,yes,no,"Flagged, quality failed"
+S25-0044,S25,110,71,74,0.347826,False,51,0.463636,False,False,25,yes,yes,"Quality passed, not flagged"
+S22-0326,S22,127,84,81,0.412587,False,62,0.488189,False,False,48,yes,yes,"Quality passed, not flagged"
+205-0155,205,158,95,96,0.439306,False,89,0.563291,True,False,48,yes,yes,Usable and flagged
