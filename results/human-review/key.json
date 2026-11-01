@@ -1,0 +1,82 @@
+{
+ "R01": {
+  "method": "word_swaps",
+  "id": "46-0155"
+ },
+ "R02": {
+  "method": "rewriting",
+  "id": "S05-0533"
+ },
+ "R03": {
+  "method": "rewriting",
+  "id": "1400-0614"
+ },
+ "R04": {
+  "method": "word_swaps",
+  "id": "2600-2189"
+ },
+ "R05": {
+  "method": "word_swaps",
+  "id": "2600-1571"
+ },
+ "R06": {
+  "method": "word_swaps",
+  "id": "S05-0533"
+ },
+ "R07": {
+  "method": "word_swaps",
+  "id": "514-0605"
+ },
+ "R08": {
+  "method": "rewriting",
+  "id": "2554-0062"
+ },
+ "R09": {
+  "method": "rewriting",
+  "id": "84-0017"
+ },
+ "R10": {
+  "method": "word_swaps",
+  "id": "345-0233"
+ },
+ "R11": {
+  "method": "rewriting",
+  "id": "1184-1511"
+ },
+ "R12": {
+  "method": "word_swaps",
+  "id": "1184-1511"
+ },
+ "R13": {
+  "method": "rewriting",
+  "id": "2600-1571"
+ },
+ "R14": {
+  "method": "rewriting",
+  "id": "46-0155"
+ },
+ "R15": {
+  "method": "word_swaps",
+  "id": "2554-0062"
+ },
+ "R16": {
+  "method": "word_swaps",
+  "id": "1400-0614"
+ },
+ "R17": {
+  "method": "word_swaps",
+  "id": "84-0017"
+ },
+ "R18": {
+  "method": "rewriting",
+  "id": "345-0233"
+ },
+ "R19": {
+  "method": "rewriting",
+  "id": "2600-2189"
+ },
+ "R20": {
+  "method": "rewriting",
+  "id": "514-0605"
+ }
+}
