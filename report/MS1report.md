@@ -2,7 +2,7 @@
 Keyed Text Watermarking: Milestone 1 Report
 ============
 
-Rowen Ess, Austin Sternberg, Will Nahra
+Rowan Ess, Austin Sternberg, Will Nahra
 
 https://github.com/Goldbarn/DSAPprojRepo
 <!--typst-end-exclude-->
