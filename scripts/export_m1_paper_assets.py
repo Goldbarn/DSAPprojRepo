@@ -3,6 +3,7 @@
 Run: uv run --group report python scripts/export_m1_paper_assets.py
 """
 
+import json
 import textwrap
 from zipfile import ZIP_DEFLATED, ZipFile
 
@@ -15,6 +16,7 @@ from wmark.settings import ROOT, SPLITS_DIR
 OUT = ROOT / "report" / "figures" / "m1-paper"
 CAL = ROOT / "results" / "calibration" / "run-20261031-123747"
 EVAL = figures.FIRST
+REVIEW = ROOT / "results" / "human-review"
 
 
 def table(name: str, title: str, columns: list[str], rows: list[list[str]], widths: list[float],
@@ -57,11 +59,15 @@ def main() -> None:
     assert len(unmarked) == 150 and len(wm) == 10
     flagged = sum(r["flagged_after"] == "True" for r in wm)
     false = sum(r["flagged"] == "True" for r in unmarked)
+    key = json.loads((REVIEW / "key.json").read_text(encoding="utf-8"))
+    usable = {key[a["label"]]["id"] for a in read_csv(REVIEW / "review_answers.csv")
+              if key[a["label"]]["method"] == "word_swaps" and a["meaning_preserved"] == a["readable"] == "yes"}
+    usable_flagged = sum(r["flagged_after"] == "True" and r["id"] in usable for r in wm)
     table("primary_results.png", "Primary evaluation: fixed threshold 0.55", ["Measurement", "Result"],
           [["Unmarked false-positive rate", f"{false} / 150 = {false / 150:.1%}"],
            ["Detection rate on watermarking outputs", f"{flagged} / 10 = {flagged / 10:.0%}"],
-           ["Usable and flagged (human review)", "Pending"]],
-          [0.74, 0.26], 1.55, "Usability will come from the blind teammate review.")
+           ["Usable and flagged (human review)", f"{usable_flagged} / 10 = {usable_flagged / 10:.0%}"]],
+          [0.74, 0.26], 1.55, "Usable means the reviewer answered yes for both meaning and readability.")
     table("length_group_results.png", "Unmarked evaluation results by passage length",
           ["Normalized words", "Flagged", "Tested", "False-positive rate"],
           [[g, str(sum(r["flagged"] == "True" for r in unmarked if r["length_group"] == g)),
@@ -82,7 +88,7 @@ def main() -> None:
          "Attack: replace green words with red alternatives.\nCost: 0 discovery queries.\nQuality: suitable synonyms needed.\nDefense: protect the key."],
         ["Forgery", "Attack: make blind substitutions.\nCost: 0 queries; edits uncertain.\nQuality: awkward edits possible.\nDefense: threshold above typical unmarked scores.",
          "Attack: query repeated words to learn colors.\nCost: 1 query per tested word, plus editing.\nQuality: suitable synonyms needed.\nDefense: limit query access.",
-         "Attack: apply keyed watermarking.\nCost: 0 discovery queries.\nQuality: edits must pass human review.\nDefense: protect the key."],
+         "Attack: apply keyed watermarking.\nCost: 0 discovery queries.\nQuality: reviewed rewrites passed; word swaps failed.\nDefense: protect the key."],
     ]
     wrapped = [[row[0], *["\n".join(textwrap.fill(part, width=29) for part in cell.splitlines())
                          for cell in row[1:]]] for row in cells]
