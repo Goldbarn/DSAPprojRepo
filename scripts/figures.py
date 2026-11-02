@@ -1,12 +1,14 @@
 """Draw the Milestone 1 report figures from saved runs. Run: uv run --group report python scripts/figures.py"""
 
+from collections import Counter
+
 import matplotlib
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 from wmark.records import LENGTH_GROUPS, read_csv
-from wmark.settings import RESULTS_DIR, ROOT
+from wmark.settings import RESULTS_DIR, ROOT, SOURCES_CSV
 
 FIRST = RESULTS_DIR / "evaluation" / "run-20261031-124055"
 POST = RESULTS_DIR / "post-evaluation" / "run-20261031-124254"
@@ -140,6 +142,17 @@ def broader_test() -> None:
     fig.savefig(OUT / "broader_test.png", dpi=220)
 
 
+def book_labels(rows: list[dict]) -> list[str]:
+    titles = {s["source_id"]: s["title"] for s in read_csv(SOURCES_CSV)}
+    seen: Counter[str] = Counter()
+    labels = []
+    for r in rows:
+        title = titles[r["source_id"]]
+        seen[title] += 1
+        labels.append(title if seen[title] == 1 else f"{title} ({seen[title]})")
+    return labels
+
+
 def watermarking() -> None:
     rows = sorted(read_csv(FIRST / "wm_scores.csv"), key=lambda r: float(r["score_after"]))
     fig, ax = plt.subplots(figsize=(6.5, 2.9))
@@ -154,7 +167,7 @@ def watermarking() -> None:
     ax.scatter([], [], s=30, color=MUTED, label="Original")
     ax.scatter([], [], s=38, color=BLUE, label="Output, flagged")
     ax.scatter([], [], s=38, edgecolor=BLUE, facecolor=SURFACE, lw=1.4, label="Output, not flagged")
-    ax.set_yticks(range(len(rows)), [r["id"] for r in rows])
+    ax.set_yticks(range(len(rows)), book_labels(rows))
     ax.set_xlabel("Green fraction")
     ax.set_xlim(0.34, 0.62)
     ax.set_ylim(-0.6, len(rows) + 0.1)
