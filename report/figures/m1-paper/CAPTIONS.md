@@ -17,8 +17,8 @@ Replace existing Markdown tables with their PNG versions rather than duplicating
   for all ten primary evaluation attempts. The line marks 0.55; hollow output markers were not flagged.
 - length_group_results.png, with the length discussion: Flagged and tested unmarked passages by
   normalized-word length. No flags in a group does not establish a zero population false-positive rate.
-- threat_model.png, under Threat Model: Predicted attacks under no, query, and key access. Query limits
-  are proposed budgets, not measured attack-success results. Removal requires a flagged, usable starting text.
+- threat_model.png, under Threat Model: Attacks under no, query, and key access, with (P) for predictions
+  and (M) for measured results. Removal requires a flagged, usable starting text.
 
 ## Optional post-evaluation figures
 

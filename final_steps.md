@@ -1,10 +1,12 @@
 # Final steps for Milestone 1
 
-[PR #1](https://github.com/Goldbarn/DSAPprojRepo/pull/1) has merged into `main`. The code, data, runs, figures, and report are in `main`. The report we submit is `report/MS1report.md`. `report/milestone1.md` is an older long draft and is not being submitted.
+[PR #1](https://github.com/Goldbarn/DSAPprojRepo/pull/1) has merged into `main`. The code, data, runs, figures, and report are in `main`. The report we submit is `report/MS1report.pdf`, built from `report/MS1report.md`. `report/milestone1.md` is an older long draft and is not being submitted.
 
 ## 1. Human review (done)
 
 Will Nahra reviewed all 20 outputs. The answers are in `results/human-review/review_answers.csv`, the returned sheet is `results/human-review/review_sheet_completed.md`, and `results/human-review/key.json` decodes the labels. Word swaps: 0 of 10 usable. Rewrites: 10 of 10 usable. The results are in the report and in Table 3.
+
+Will still needs to check the 5 calibration outputs, which the project also requires. Send `results/human-review/calibration_sheet.md`, then decode the answers with `results/human-review/calibration_key.json`. The report says these outputs had no quality evidence, so update that sentence in the Implementation section when the answers are back.
 
 ## 2. Check the contribution statement
 
@@ -14,8 +16,9 @@ Will Nahra reviewed all 20 outputs. The answers are in `results/human-review/rev
 ## 3. Export and submit
 
 - The limit is 6 pages, not counting references or the contribution statement.
-- Export `report/MS1report.md` to the format the course wants, and check the page count and that the figures appear.
-- Submit the report and the repository link.
+- Rebuild `report/MS1report.pdf` after any edit to `report/MS1report.md` with `typst compile report/MS1report.typ`, then check that it is still 6 pages.
+- Give the course staff access to the repository, which is private, because the spec requires the code and README.
+- Submit `report/MS1report.pdf` and the repository link.
 
 ## After Milestone 1
 

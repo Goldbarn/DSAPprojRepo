@@ -8,7 +8,6 @@ Requires Python 3.13+ and [uv](https://docs.astral.sh/uv/). No third-party runti
 
 ```sh
 uv sync --group report
-uv run wm keygen          # once; writes secrets/watermark.key (demonstration key)
 ```
 
 ## Milestone 1 pipeline
@@ -136,5 +135,5 @@ Watermarked output is the preprocessed text (NFKC, Cf removed) with substitution
 | Member | Work | Commits |
 | --- | --- | --- |
 | Rowen Ess (Goldbarn) | First source list, first split, key generation, first calibration run | [c8b9738](https://github.com/Goldbarn/DSAPprojRepo/commit/c8b9738), [260107d](https://github.com/Goldbarn/DSAPprojRepo/commit/260107d) |
-| Will Nahra (Wil N) | Second source list, including the nonfiction sources | [37c28d8](https://github.com/Goldbarn/DSAPprojRepo/commit/37c28d8) |
+| Will Nahra (Wil N) | Second source list, including the nonfiction sources; blind human review of watermarking outputs | [37c28d8](https://github.com/Goldbarn/DSAPprojRepo/commit/37c28d8) |
 | Austin Sternberg (Yoyojesus) | Package setup, detector, watermarker, pipeline scripts, merged data, expanded synonym list, calibration and evaluation runs, figures, report drafting | [6512aea](https://github.com/Goldbarn/DSAPprojRepo/commit/6512aea), [bc2165d](https://github.com/Goldbarn/DSAPprojRepo/commit/bc2165d), [8214a75](https://github.com/Goldbarn/DSAPprojRepo/commit/8214a75), [58b4da5](https://github.com/Goldbarn/DSAPprojRepo/commit/58b4da5), [c721687](https://github.com/Goldbarn/DSAPprojRepo/commit/c721687), [7691143](https://github.com/Goldbarn/DSAPprojRepo/commit/7691143) |

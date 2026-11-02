@@ -83,19 +83,19 @@ def main() -> None:
           [0.56, 0.22, 0.22], 1.45,
           "Unmarked sets: 50 passages per length group in each set. Books do not cross sets.")
     cells = [
-        ["Removal", "Attack: paraphrase blindly.\nCost: 0 queries; edits uncertain.\nQuality: extensive edits risk meaning.\nDefense: larger score margin.",
-         "Attack: test substitutions.\nCost: up to 100 queries and 15 minutes in later tests.\nQuality: must be checked.\nDefense: rate limits; binary replies.",
-         "Attack: replace green words with red alternatives.\nCost: 0 discovery queries.\nQuality: suitable synonyms needed.\nDefense: protect the key."],
-        ["Forgery", "Attack: make blind substitutions.\nCost: 0 queries; edits uncertain.\nQuality: awkward edits possible.\nDefense: threshold above typical unmarked scores.",
-         "Attack: query repeated words to learn colors.\nCost: 1 query per tested word, plus editing.\nQuality: suitable synonyms needed.\nDefense: limit query access.",
-         "Attack: apply keyed watermarking.\nCost: 0 discovery queries.\nQuality: reviewed rewrites passed; word swaps failed.\nDefense: protect the key."],
+        ["Removal", "Attack: paraphrase blindly. (P)\nCost: 0 queries; 18 to 60 changed words, the size of our rewrites. (P)\nQuality: extensive edits risk meaning. (P)\nDefense: larger score margin.",
+         "Attack: test substitutions. (P)\nCost: 4 to 20 queries for 1 to 5 net swaps; budget 100 queries, 15 minutes. (P)\nQuality: few edits, low risk; must be checked. (P)\nDefense: rate limits; binary replies.",
+         "Attack: replace green words with red alternatives. (P)\nCost: 0 queries; 1 to 5 word edits. (P)\nQuality: few edits; suitable synonyms needed. (P)\nDefense: protect the key."],
+        ["Forgery", "Attack: make blind substitutions. (P)\nCost: 0 queries; score must rise about 0.13, and blind edits average no gain. (P)\nQuality: awkward edits likely. (P)\nDefense: threshold above typical unmarked scores.",
+         "Attack: query repeated words to learn colors. (P)\nCost: 1 query per tested word, then 12 to 26 edits. (P)\nQuality: suitable synonyms needed; word swaps read poorly. (P)\nDefense: limit query access.",
+         "Attack: apply keyed watermarking. (M)\nCost: 0 queries; 12 to 26 word swaps, or 18 to 60 changed words in rewrites. (M)\nQuality: 0 of 10 word swaps and 10 of 10 rewrites passed. (M)\nDefense: protect the key."],
     ]
     wrapped = [[row[0], *["\n".join(textwrap.fill(part, width=29) for part in cell.splitlines())
                          for cell in row[1:]]] for row in cells]
     table("threat_model.png", "Threat model: attacks, costs, quality, and defenses",
           ["Goal", "No detector access", "Query access", "Key access"], wrapped,
-          [0.12, 0.29, 0.30, 0.29], 4.7,
-          "Attack effectiveness and budgets are predictions, not measured attack-success results.\n"
+          [0.12, 0.29, 0.30, 0.29], 5.4,
+          "(P) prediction; (M) measured result. Defenses are proposals, and budgets are proposed for Milestone 2.\n"
           "Removal requires a flagged, usable starting output. Neither response hiding nor rate limits guarantees safety.",
           fontsize=8)
     figures.OUT = OUT
@@ -131,8 +131,8 @@ Replace existing Markdown tables with their PNG versions rather than duplicating
   for all ten primary evaluation attempts. The line marks 0.55; hollow output markers were not flagged.
 - length_group_results.png, with the length discussion: Flagged and tested unmarked passages by
   normalized-word length. No flags in a group does not establish a zero population false-positive rate.
-- threat_model.png, under Threat Model: Predicted attacks under no, query, and key access. Query limits
-  are proposed budgets, not measured attack-success results. Removal requires a flagged, usable starting text.
+- threat_model.png, under Threat Model: Attacks under no, query, and key access, with (P) for predictions
+  and (M) for measured results. Removal requires a flagged, usable starting text.
 
 ## Optional post-evaluation figures
 

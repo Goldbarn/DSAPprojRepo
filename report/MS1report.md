@@ -1,9 +1,9 @@
+<!--typst-begin-exclude-->
 Milestone 1 Report
 ============
 
 Rowen Ess, Austin Sternberg, Will Nahra
-
----
+<!--typst-end-exclude-->
 
 Introduction
 ------------
@@ -56,7 +56,7 @@ Six of the 10 attempts reached the target, and the mean score rose from 0.427 be
 
 To quality check, a teammate who did not edit the passages reads 20 completely shuffled original and edited text pairs, the 10 word-swap outputs and the 10 sentence rewrites, stripped of all IDs, scores, system decisions, or target statuses. The reviewer then decides if the core meaning of the passage was preserved and if the resulting prose remained readable, and both answers must be yes for an output to be usable. A teammate's familiarity with how the scheme operates could make awkward wording seem more acceptable, so hiding the scores reduces bias but does not eliminate it.
 
-Will Nahra, who did not edit any of the passages, completed the review. None of the 10 word-swap outputs were usable. Nine of them preserved the core meaning, but all 10 failed on readability, so the usable watermarking success rate of our frozen procedure is 0 of 10. Failed outputs included phrases such as "This fellows of this party", "stooping some tiny", "boyish great nature", and "some lively tiny woman". All 10 sentence rewrites, discussed below, passed both questions. This is the judgment of one reviewer on one pass, so these counts should not be read as precise rates.
+Will Nahra, who did not edit any of the passages, completed the review. None of the 10 word-swap outputs were usable. Nine of them preserved the core meaning, the exception being a passage from *War and Peace*, but all 10 failed on readability, so the usable watermarking success rate of our frozen procedure is 0 of 10. Failed outputs included phrases such as "This fellows of this party", "stooping some tiny", "boyish great nature", and "some lively tiny woman". All 10 sentence rewrites, discussed below, passed both questions. This is the judgment of one reviewer on one pass, so these counts should not be read as precise rates.
 
 Our evaluation yielded an unmarked false-positive rate of 2.0%, with exactly 3 out of 150 natural human passages being incorrectly flagged as watermarked. These passages were never edited, so word substitution did not cause these flags. In these cases, natural text simply matched our static key's "green" criteria heavily enough to breach the 0.55 threshold. Because our detector only counts colors, it cannot distinguish between an intentional watermark and a human author who simply happens to write with a high density of green-hashed words. This shows that relying on post-generation token frequency metrics without evaluating semantic context or grammatical structure creates an unstable detection environment prone to false accusations.
 
@@ -76,9 +76,9 @@ After the main evaluation, we tested length-based thresholds: 0.68 for passages 
 
 *Figure 2. False positives among 1,500 fresh unmarked passages, with 500 per length group.*
 
-We then replaced word swaps with sentence rewriting, restructuring whole sentences while checking each word's color with the key. On the same 10 passages with the length-based thresholds, it flagged 8, compared with 6 for word swaps. One of the two misses, from *The Count of Monte Cristo*, scored 0.573, but rewriting shortened it to 96 words and put it under the stricter short-passage threshold. All 10 rewrites passed human review, so the usable watermarking success rate rose from 0 of 10 to 8 of 10. These passages had been tested before, though, so this is not an independent result.
+We then replaced word swaps with sentence rewriting, which the project allows as automated rewriting. An AI editor (Claude) with the key restructured whole sentences under written rules, using a helper that shows each word's color and the live score. On the same 10 passages with the length-based thresholds, it flagged 8, compared with 6 for word swaps. One of the two misses, from *The Count of Monte Cristo*, scored 0.573, but rewriting shortened it to 96 words and put it under the stricter short-passage threshold. Rewrites changed 18 to 60 words by the same count, far more than word swaps. All 10 passed human review, so the usable watermarking success rate rose from 0 of 10 to 8 of 10. These passages had been tested before, though, so this is not an independent result.
 
-On 20 new passages with the length-based thresholds, rewriting flagged 11, compared with 9 for word swaps, or 12 for word swaps at the original 0.55 threshold. It worked well on narrative, flagging 9 of 11, but poorly on expository text, flagging 2 of 9, though this grouping was made after seeing the results, so it is exploratory. These 20 outputs did not go through human review, so we do not know how many are usable. Scoring 19,558 more unmarked passages confirmed the false-positive rates: 2.04% with one threshold and 0.28% with length-based thresholds.
+On 20 new passages with the length-based thresholds, rewriting flagged 11, compared with 9 for word swaps, or 12 for word swaps at the original 0.55 threshold. It worked well on narrative, flagging 9 of 11, but poorly on expository text, flagging 2 of 9, though this grouping was made after seeing the results, so it is exploratory. We revised the rewriting rules before this test using what we saw on the 10 evaluation passages, so the human review above covers the earlier rules. These 20 outputs did not go through human review, so we do not know how many are usable. Scoring 19,558 more unmarked passages confirmed the false-positive rates: 2.04% with one threshold and 0.28% with length-based thresholds.
 
 Threat Model
 ------------
@@ -87,11 +87,11 @@ An attacker has one of two goals: removal, making a flagged and usable passage g
 
 ![Threat model](figures/m1-paper/threat_model.png)
 
-*Table 5. Predicted attacks under no, query, and key access. Query limits are proposed budgets for Milestone 2.*
+*Table 5. Attacks under no, query, and key access. (P) marks a prediction and (M) a measured result. Budgets are proposed for Milestone 2.*
 
-A few measured results shape these predictions. Flagged evaluation outputs sat only 0.001 to 0.019 above the threshold, so removal should take as few as 1 to 3 net green-to-red swaps, or roughly 5 to 20 queries with scores and more with binary responses. For query forgery, a word repeated many times scores 0 or 1, so one query reveals one color even when only the decision is shown, and the 100 most common red words already cover 40.7% of calibration tokens. Key forgery is simply our own procedure, which flagged 7 of 10 passages with 5 to 26 edits. None of those outputs passed human review, so word swaps alone did not produce a usable forgery, while sentence rewriting with the key produced 8 usable, flagged outputs out of 10. Case changes and zero-width characters should have no effect, since our rules remove them, but NFKC does not fold Cyrillic lookalike letters, so those would give a word a new color.
+A few measured results shape these predictions. Removal must start from a flagged, usable output, and none of the word swaps qualify, so we use the 8 usable, flagged rewrites. These sat only 0.003 to 0.026 above the 0.56 threshold, so removal should take as few as 1 to 5 net green-to-red swaps. A blind substitution lowers the green count about one time in four, which gives roughly 4 to 20 queries with scores and more with binary responses. For query forgery, a word repeated many times scores 0 or 1, so one query reveals one color even when only the decision is shown, and the 100 most common red words already cover 41.1% of calibration tokens. Key forgery is simply our own procedure, which flagged 7 of 10 passages with 12 to 26 edits. None of those outputs passed human review, so word swaps alone did not produce a usable forgery, while sentence rewriting with the key produced 8 usable, flagged outputs out of 10. Case changes and zero-width characters should have no effect, since our rules remove them, but NFKC does not fold Cyrillic lookalike letters, so those would give a word a new color.
 
-**Key distribution.** The operator should retain the key and offer detection only as a service, since anyone able to detect locally with this key can also compute colors and forge. During detection the operator sees the submitted text, even if logs omit it. An independent reviewer could reproduce a disputed score by running the fixed program and key in a controlled environment, but this verifies the arithmetic, not authorship.
+**Key distribution.** Only the operator should hold the key, so only the operator can watermark or detect locally, since anyone able to detect locally with this key can also compute colors and forge. Everyone else should use detection as a service, submitting queries through accounts the operator controls. During detection the operator sees the submitted text, even if logs omit it. An independent reviewer could reproduce a disputed score by running the fixed program and key in a controlled environment, but this verifies the arithmetic, not authorship.
 
 **Context dependence.** If a word's color depended on the words before it, learning a color from one repeated word would no longer apply everywhere, so query forgery would require far more probing and learned colors would be less reusable. Editing a word would also change its neighbor's color, which makes watermarking harder and removal easier. An attacker with the key could still compute any context locally.
 
