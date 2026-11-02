@@ -16,7 +16,7 @@ from wmark.color import load_key
 from wmark.detector import detect, is_flagged
 from wmark.records import read_jsonl, write_csv, write_jsonl
 from wmark.settings import KEY_PATH, RESULTS_DIR, SETTINGS_PATH, SPLITS_DIR, SYNONYMS_PATH, load_settings
-from wmark.text import changed_words
+from wmark.text import changed_words, words
 from wmark.watermark import load_synonyms, watermark
 
 SWEEP = [0.50, 0.55, 0.60, 0.65]
@@ -45,9 +45,9 @@ def run_watermarking(passages: list[dict], key: bytes, settings, out_dir: Path) 
     synonyms = load_synonyms(SYNONYMS_PATH)
     rows, outputs = [], []
     for p in passages:
-        before = detect(p["text"], key, settings.threshold)
+        before = detect(p["text"], key, settings.threshold_for(len(words(p["text"]))))
         r = watermark(p["text"], key, synonyms, settings.target, settings.max_seconds, settings.max_substitutions)
-        after = detect(r.text, key, settings.threshold)
+        after = detect(r.text, key, settings.threshold_for(len(words(r.text))))
         (out_dir / "watermarked").mkdir(parents=True, exist_ok=True)
         (out_dir / "watermarked" / f"{p['id']}.txt").write_text(r.text, encoding="utf-8")
         outputs.append({"id": p["id"], "original": p["text"], "edited": r.text})

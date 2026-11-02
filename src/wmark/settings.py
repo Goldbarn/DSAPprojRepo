@@ -23,6 +23,10 @@ class Settings:
     seed: int
     raw: dict
 
+    def threshold_for(self, n_words: int) -> float:
+        d = self.raw["detector"]
+        return d["short_threshold"] if n_words < d.get("short_below", 0) else self.threshold
+
 
 def load_settings(path: Path = SETTINGS_PATH) -> Settings:
     raw = tomllib.loads(path.read_text(encoding="utf-8"))

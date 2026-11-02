@@ -7,5 +7,5 @@ id,source_id,total,distinct_before,distinct_after,score_before,flagged_before,gr
 1400-0614,1400,100,84,74,0.377193,False,58,0.580000,True,True,45
 84-0017,84,124,99,94,0.442029,False,71,0.572581,True,True,43
 S05-0533,S05,128,100,95,0.374101,False,72,0.562500,True,False,60
-1184-1511,1184,96,79,76,0.500000,False,55,0.572917,True,True,18
+1184-1511,1184,96,79,76,0.500000,False,55,0.572917,False,True,18
 345-0233,345,178,103,108,0.497326,False,104,0.584270,True,True,30

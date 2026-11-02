@@ -11,15 +11,15 @@ from pathlib import Path
 from wmark.color import GREEN, load_key, word_color
 from wmark.detector import detect
 from wmark.records import read_jsonl, write_csv
-from wmark.settings import KEY_PATH, ROOT, SPLITS_DIR, load_settings
+from wmark.settings import KEY_PATH, ROOT, SPLITS_DIR, Settings, load_settings
 from wmark.text import changed_words, iter_word_matches, normalize, preprocess, words
 
 SETTINGS_V3 = ROOT / "config" / "settings_v3.toml"
 
 
-def show(path: Path, key: bytes, threshold: float) -> None:
+def show(path: Path, key: bytes, settings: Settings) -> None:
     text = preprocess(path.read_text(encoding="utf-8"))
-    d = detect(text, key, threshold)
+    d = detect(text, key, settings.threshold_for(len(words(text))))
     out, end = [], 0
     for m in iter_word_matches(text):
         out.append(text[end : m.start()])
@@ -30,11 +30,13 @@ def show(path: Path, key: bytes, threshold: float) -> None:
     print("".join(out) + text[end:])
 
 
-def score(run_dir: Path, split: str, key: bytes, threshold: float, target: float) -> None:
+def score(run_dir: Path, split: str, key: bytes, settings: Settings) -> None:
     rows = []
     for p in read_jsonl(SPLITS_DIR / f"{split}_wm.jsonl"):
         edited = (run_dir / "watermarked" / f"{p['id']}.txt").read_text(encoding="utf-8")
-        before, after = detect(p["text"], key, threshold), detect(edited, key, threshold)
+        # Each text gets the threshold for its own length: a detector never sees the original.
+        before = detect(p["text"], key, settings.threshold_for(len(words(p["text"]))))
+        after = detect(edited, key, settings.threshold_for(len(words(edited))))
         rows.append(
             {
                 "id": p["id"],
@@ -47,7 +49,7 @@ def score(run_dir: Path, split: str, key: bytes, threshold: float, target: float
                 "green_after": after.green,
                 "score_after": f"{after.green_fraction:.6f}",
                 "flagged_after": after.flagged,
-                "reached_target": after.green_fraction >= target,
+                "reached_target": after.green_fraction >= settings.target,
                 "changed_words": changed_words(p["text"], edited),
             }
         )
@@ -70,12 +72,12 @@ def main() -> None:
     settings = load_settings(SETTINGS_V3)
     if args.cmd == "show":
         for path in args.files:
-            show(path, key, settings.threshold)
+            show(path, key, settings)
     elif args.cmd == "words":
         for w in args.words:
             print(w, "green" if all(word_color(x, key) == GREEN for x in words(w)) else "red")
     else:
-        score(args.run_dir, args.split, key, settings.threshold, settings.target)
+        score(args.run_dir, args.split, key, settings)
 
 
 if __name__ == "__main__":

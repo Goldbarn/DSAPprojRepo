@@ -35,12 +35,10 @@ def fresh_passages(seed: int) -> list[dict]:
     return fresh
 
 
-def score(passages: list[dict], key: bytes, raw: dict) -> list[dict]:
+def score(passages: list[dict], key: bytes, settings) -> list[dict]:
     rows = []
     for p in passages:
-        n = len(words(p["text"]))
-        d = raw["detector"]
-        threshold = d["short_threshold"] if n < d["short_below"] else d["threshold"]
+        threshold = settings.threshold_for(len(words(p["text"])))
         r = detect(p["text"], key, threshold)
         rows.append(
             {
@@ -66,9 +64,9 @@ def main() -> None:
     shutil.copy(SETTINGS_V2, out_dir / "settings.toml")
     shutil.copy(SYNONYMS_PATH, out_dir / "synonyms.json")
 
-    write_csv(out_dir / "fresh_unmarked_scores.csv", score(fresh_passages(settings.seed), key, settings.raw))
+    write_csv(out_dir / "fresh_unmarked_scores.csv", score(fresh_passages(settings.seed), key, settings))
     repeat = read_jsonl(SPLITS_DIR / "evaluation_unmarked.jsonl")
-    write_csv(out_dir / "repeat_unmarked_scores.csv", score(repeat, key, settings.raw))
+    write_csv(out_dir / "repeat_unmarked_scores.csv", score(repeat, key, settings))
 
     for name in ("calibration", "evaluation"):
         wm_passages = read_jsonl(SPLITS_DIR / f"{name}_wm.jsonl")
