@@ -12,6 +12,7 @@ from wmark.settings import RESULTS_DIR, ROOT, SPLITS_DIR
 
 OUT = RESULTS_DIR / "human-review"
 TEMPLATE = ROOT / "scripts" / "review_page.html"
+CALIBRATION = RESULTS_DIR / "calibration" / "run-20261031-123747" / "watermarked"
 METHODS = {
     "word_swaps": RESULTS_DIR / "evaluation" / "run-20261031-124055" / "watermarked",
     "rewriting": RESULTS_DIR / "rewrite" / "evaluation" / "watermarked",
@@ -33,6 +34,20 @@ def main() -> None:
     (OUT / "review.html").write_text(TEMPLATE.read_text(encoding="utf-8").replace("__ITEMS__", data), encoding="utf-8")
     (OUT / "key.json").write_text(json.dumps(key, indent=1), encoding="utf-8")
     (OUT / "review_sheet.md").write_text(review_sheet(items), encoding="utf-8")
+    calibration_sheet()
+
+
+def calibration_sheet() -> None:
+    passages = read_jsonl(SPLITS_DIR / "calibration_wm.jsonl")
+    random.Random(1101).shuffle(passages)
+    items, key = [], {}
+    for n, p in enumerate(passages, 1):
+        label = f"C{n:02d}"
+        key[label] = {"method": "word_swaps", "id": p["id"]}
+        edited = (CALIBRATION / f"{p['id']}.txt").read_text(encoding="utf-8").strip()
+        items.append({"label": label, "original": p["text"], "edited": edited})
+    (OUT / "calibration_key.json").write_text(json.dumps(key, indent=1), encoding="utf-8")
+    (OUT / "calibration_sheet.md").write_text(review_sheet(items), encoding="utf-8")
 
 
 def quote(text: str) -> str:
