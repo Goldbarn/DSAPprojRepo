@@ -5,7 +5,6 @@ Send only review.html to the reviewer. It holds no passage IDs, scores, decision
 
 import json
 import random
-from pathlib import Path
 
 from wmark.records import read_jsonl
 from wmark.settings import RESULTS_DIR, ROOT, SPLITS_DIR
