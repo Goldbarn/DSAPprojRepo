@@ -1,3 +1,5 @@
+> Note: the Meaning and Readable columns below came from an AI proxy, not the official review. The official answers are in `results/human-review/review_answers.csv`. Both give 0/10 usable.
+
 # Summary: run-20261031-124055
 
 ## Headline measurements

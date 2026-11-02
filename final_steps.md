@@ -6,7 +6,7 @@
 
 Will Nahra reviewed all 20 outputs. The answers are in `results/human-review/review_answers.csv`, the returned sheet is `results/human-review/review_sheet_completed.md`, and `results/human-review/key.json` decodes the labels. Word swaps: 0 of 10 usable. Rewrites: 10 of 10 usable. The results are in the report and in Table 3.
 
-Will still needs to check the 5 calibration outputs, which the project also requires. Send `results/human-review/calibration_sheet.md`, then decode the answers with `results/human-review/calibration_key.json`. The report says these outputs had no quality evidence, so update that sentence in the Implementation section when the answers are back.
+Will also reviewed the 5 calibration outputs after the evaluation: 0 of 5 usable. The answers are in `results/human-review/calibration_answers.csv`, and the returned sheet is `results/human-review/calibration_sheet_completed.md`.
 
 ## 2. Check the contribution statement
 

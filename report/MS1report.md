@@ -1,14 +1,16 @@
 <!--typst-begin-exclude-->
-Milestone 1 Report
+Keyed Text Watermarking: Milestone 1 Report
 ============
 
 Rowen Ess, Austin Sternberg, Will Nahra
+
+https://github.com/Goldbarn/DSAPprojRepo
 <!--typst-end-exclude-->
 
 Introduction
 ------------
 
-As artificial intelligence (AI) has come to dominate more and more of the technology-focused world, many issues have arisen with both dishonesty and honestly mistaking large language models (LLM)'s output for the creations of a human hand. This is an issue in many fields, for academics, for journalism, for literature, for the visual arts, for music, and for all areas of computer science. There are a few methods that have been devised to detect when some product is the spawn of machine rather than man, and of those, watermarking is the current preeminent method for the examination of bodies of text. 
+As artificial intelligence (AI) has come to dominate more and more of the technology-focused world, many issues have arisen with both dishonesty and honestly mistaking large language models (LLM)'s output for the creations of a human hand. This is an issue in many fields, for academics, for journalism, for literature, for the visual arts, for music, and for all areas of computer science. There are a few methods that have been devised to detect when some product is the spawn of machine rather than man, and of those, watermarking is the one we examine here for bodies of text. 
 
 In this report, we will endeavor to explain the implementation and results of a method of watermarking that "colors" words in such a way that if a threshold of those colored words is reached, the text is flagged. This is, of course, calibrated such that it will preferably give no false positives, though that is a difficult thing to guarantee.
 
@@ -19,7 +21,7 @@ The basic function of the program is fairly simple, starting with generating a 3
 
 One randomly generated key was used throughout, so a given word always has the same color. Watermarking and detection share the same word processing rules: text is put through Unicode NFKC normalization, curly apostrophes become straight ones, invisible format characters are removed, and words are casefolded. A word is a run of letters that may contain internal apostrophes, so `don't` is one word, while punctuation, digits, and hyphens separate words. Input containing no words is rejected with an explicit error.
 
-Our first attempt at watermarking, with a list of only 10 synonyms, made no substitutions at all. Our final procedure uses a hand-built list of about 300 synonyms and short phrases, and accepts only edits that raise the score. Editing stops when the target of 0.56 is reached, when no permitted edits remain, or after 15 minutes, and the best output is kept even if it misses the target. These settings were frozen before the main evaluation, though they were fixed on detection counts alone, with no quality evidence.
+Our first attempt at watermarking, with a list of only 10 synonyms, made no substitutions at all. Our final procedure uses a hand-built list of about 300 synonyms and short phrases, and accepts only edits that raise the score. Editing stops when the target of 0.56 is reached, when no permitted edits remain, or after 15 minutes, and the best output is kept even if it misses the target. These settings were frozen before the main evaluation, though they were fixed on detection counts alone. Human review of the 5 calibration outputs came only after the evaluation: all 5 preserved their meaning, but none were readable, so none were usable.
 
 This differs from the required reading in a few ways. Kirchenbauer et al. embed their watermark during generation, favoring green tokens as the model writes, with a hash of the previous token selecting which tokens are green. Our method works on text that already exists, where every edit must preserve someone else's meaning and grammar, and each word has one fixed color no matter its context. Their detector is also a statistical test whose evidence accumulates with length, whereas ours compares one fixed fraction for all text. As will be seen, that choice has a cost.
 
@@ -31,13 +33,13 @@ The data used for this program's calibration and evaluation were collected from 
 
 Whole books were assigned to one set or the other, so no book appears in both: 6 books supplied calibration and 32 supplied evaluation. Five of the 10 watermarking evaluation passages were selected at random, using a fixed seed, for later query-access forgery before any detector scores were seen. These come from *The Count of Monte Cristo*, *Great Expectations*, *Dracula*, *A Christmas Carol*, and *A Tale of Two Cities*.
 
-For calibration, we ran the 150 calibration prose passages through the red/green program, and then filtered out the thresholds that would have given false positives:
+For calibration, we ran the 150 calibration prose passages through the red/green program, and then compared the thresholds by their false positives and by how many of the five marked passages went unflagged:
 
 ![Calibration thresholds](figures/m1-paper/calibration_thresholds.png)
 
 *Table 2. Calibration counts for 150 unmarked passages and five watermarking outputs.*
 
-We chose 0.55, which had no false positives in this test, and flagged 4/5 of the marked ones. This was considered sufficient for the purposes of this program, though zero false positives in 150 passages does not establish that the risk is negligible.
+We chose 0.55, which had no false positives in this test, and flagged 4/5 of the marked ones. The lower threshold of 0.50 falsely flagged 4 unmarked passages, while 0.60 and 0.65 flagged none of the marked ones. This was considered sufficient for the purposes of this program, though zero false positives in 150 passages does not establish that the risk is negligible.
 
 Evaluation
 ------------
@@ -54,11 +56,11 @@ Six of the 10 attempts reached the target, and the mean score rose from 0.427 be
 
 *Figure 1. Scores before and after watermarking for the 10 evaluation attempts. Hollow markers were not flagged.*
 
-To quality check, a teammate who did not edit the passages reads 20 completely shuffled original and edited text pairs, the 10 word-swap outputs and the 10 sentence rewrites, stripped of all IDs, scores, system decisions, or target statuses. The reviewer then decides if the core meaning of the passage was preserved and if the resulting prose remained readable, and both answers must be yes for an output to be usable. A teammate's familiarity with how the scheme operates could make awkward wording seem more acceptable, so hiding the scores reduces bias but does not eliminate it.
+To quality check, a teammate who did not edit the passages read 20 completely shuffled original and edited text pairs, the 10 word-swap outputs and the 10 sentence rewrites, stripped of all IDs, scores, system decisions, or target statuses. The reviewer then decided if the core meaning of the passage was preserved and if the resulting prose remained readable, and both answers had to be yes for an output to be usable. A teammate's familiarity with how the scheme operates could make awkward wording seem more acceptable, so hiding the scores reduces bias but does not eliminate it.
 
 Will Nahra, who did not edit any of the passages, completed the review. None of the 10 word-swap outputs were usable. Nine of them preserved the core meaning, the exception being a passage from *War and Peace*, but all 10 failed on readability, so the usable watermarking success rate of our frozen procedure is 0 of 10. Failed outputs included phrases such as "This fellows of this party", "stooping some tiny", "boyish great nature", and "some lively tiny woman". All 10 sentence rewrites, discussed below, passed both questions. This is the judgment of one reviewer on one pass, so these counts should not be read as precise rates.
 
-Our evaluation yielded an unmarked false-positive rate of 2.0%, with exactly 3 out of 150 natural human passages being incorrectly flagged as watermarked. These passages were never edited, so word substitution did not cause these flags. In these cases, natural text simply matched our static key's "green" criteria heavily enough to breach the 0.55 threshold. Because our detector only counts colors, it cannot distinguish between an intentional watermark and a human author who simply happens to write with a high density of green-hashed words. This shows that relying on post-generation token frequency metrics without evaluating semantic context or grammatical structure creates an unstable detection environment prone to false accusations.
+Our evaluation yielded an unmarked false-positive rate of 2.0%, with exactly 3 out of 150 natural human passages being incorrectly flagged as watermarked. These passages were never edited, so word substitution did not cause these flags. In these cases, natural text simply matched our static key's "green" criteria heavily enough to breach the 0.55 threshold. Because our detector only counts colors, it cannot distinguish between an intentional watermark and a human author who simply happens to write with a high density of green-hashed words. On these passages, a fixed color count at 0.55 wrongly flagged about 2% of human text, so a flag alone is not evidence that text was watermarked.
 
 Because the detector uses a fixed fraction rather than a length-dependent statistic, false-positive risk varies with document length. Among the 150 unmarked evaluation passages, the 30-99 word group had 2 false positives, the 100-199 group had 1, and the 200-400 group had none. Short passages have fewer words, so chance clusters of green words move their scores more, while longer passages stay closer to the average. Our larger tests below show the same pattern: at 0.55, false positives were about 5% for short passages and 0.2% for long ones, so long passages are not immune. The result is that short human-written text is the most likely to be wrongly flagged.
 
@@ -83,7 +85,7 @@ On 20 new passages with the length-based thresholds, rewriting flagged 11, compa
 Threat Model
 ------------
 
-An attacker has one of two goals: removal, making a flagged and usable passage go unflagged, or forgery, making unmarked prose become flagged. Both must preserve meaning and readability. We consider three levels of access: none (knows the algorithm but has neither key nor detector), query (can submit text to the detector), and key (can compute colors locally). Nothing here has been run yet, so the attacks and costs below are predictions unless marked as measured.
+An attacker has one of two goals: removal, making a flagged and usable passage go unflagged, or forgery, making unmarked prose become flagged. Both must preserve meaning and readability. We consider three levels of access: none (knows the algorithm but has neither key nor detector), query (can submit text to the detector), and key (can compute colors locally). Most of this has not been run yet, so the attacks and costs below are predictions unless marked as measured.
 
 ![Threat model](figures/m1-paper/threat_model.png)
 
@@ -96,6 +98,11 @@ A few measured results shape these predictions. Removal must start from a flagge
 **Context dependence.** If a word's color depended on the words before it, learning a color from one repeated word would no longer apply everywhere, so query forgery would require far more probing and learned colors would be less reusable. Editing a word would also change its neighbor's color, which makes watermarking harder and removal easier. An attacker with the key could still compute any context locally.
 
 **Digital signatures.** A digital signature shows that exact text was signed by the holder of a private key, and anyone can verify it without gaining the ability to sign. Changing one character invalidates it, and a compromised key can be revoked. A watermark instead gives a statistical signal that may survive some edits, but it has false positives, and here one shared secret both embeds and detects, so a leak allows forgery and casts doubt on earlier results. Neither establishes who actually wrote the text.
+
+Conclusion
+------------
+
+Our frozen word-swap procedure flagged 7 of 10 passages, but none of its outputs were usable in human review, and it wrongly flagged 3 of 150 unmarked passages. Sentence rewriting and length-based thresholds did better, with 8 of 10 outputs usable and flagged and about 0.3% false positives, though those rewrites used passages we had already tested and only one person reviewed them. These results apply to public-domain books at the lengths we tested, not to student or modern writing, and a flag alone should not be treated as proof of where a text came from.
 
 References
 ------------

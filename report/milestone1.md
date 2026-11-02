@@ -1,3 +1,5 @@
+> Superseded draft, not the submission. Its numbers and proxy review results are out of date. See `report/MS1report.pdf`.
+
 # Milestone 1: Detector, Evaluation, and Threat Model
 
 ## 1. Scheme and detector
