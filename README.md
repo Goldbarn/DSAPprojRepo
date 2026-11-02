@@ -132,10 +132,8 @@ Watermarked output is the preprocessed text (NFKC, Cf removed) with substitution
 
 ## Contribution statement
 
-| Member | Work |
-| --- | --- |
-| Rowen Ess | First source list, key generation, early split and first calibration run, first draft of the final report |
-| Will Nahra | Second source list including the nonfiction sources, early passage set and split, report edits including the quality-check and false-positive sections, blind human review of the evaluation and calibration outputs |
-| Austin Sternberg | Package setup, detector, watermarker, pipeline scripts, merged data and final split, expanded synonym list, final calibration and evaluation runs, post-evaluation tests, review tools, figures, report editing and PDF |
-
-Commit history: https://github.com/Goldbarn/DSAPprojRepo/commits/main
+| Member | Work | Commits |
+| --- | --- | --- |
+| Rowen Ess | First source list, key generation, early split and first calibration run, first draft of the final report | [c8b9738](https://github.com/Goldbarn/DSAPprojRepo/commit/c8b9738), [260107d](https://github.com/Goldbarn/DSAPprojRepo/commit/260107d), [f052027](https://github.com/Goldbarn/DSAPprojRepo/commit/f052027) |
+| Will Nahra | Second source list including the nonfiction sources, early passage set and split, report edits including the quality-check and false-positive sections, blind human review of the evaluation and calibration outputs | [37c28d8](https://github.com/Goldbarn/DSAPprojRepo/commit/37c28d8), [ed1fa9b](https://github.com/Goldbarn/DSAPprojRepo/commit/ed1fa9b); review answers recorded in [0e23975](https://github.com/Goldbarn/DSAPprojRepo/commit/0e23975), [7f6e766](https://github.com/Goldbarn/DSAPprojRepo/commit/7f6e766) |
+| Austin Sternberg | Package setup, detector, watermarker, pipeline scripts, merged data and final split, expanded synonym list, final calibration and evaluation runs, post-evaluation tests, review tools, figures, report editing and PDF | [6512aea](https://github.com/Goldbarn/DSAPprojRepo/commit/6512aea), [bc2165d](https://github.com/Goldbarn/DSAPprojRepo/commit/bc2165d), [8214a75](https://github.com/Goldbarn/DSAPprojRepo/commit/8214a75), [58b4da5](https://github.com/Goldbarn/DSAPprojRepo/commit/58b4da5), [c721687](https://github.com/Goldbarn/DSAPprojRepo/commit/c721687), [7691143](https://github.com/Goldbarn/DSAPprojRepo/commit/7691143), [f72c538](https://github.com/Goldbarn/DSAPprojRepo/commit/f72c538), [cb86b43](https://github.com/Goldbarn/DSAPprojRepo/commit/cb86b43) |
