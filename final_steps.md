@@ -1,6 +1,6 @@
 # Final steps for Milestone 1
 
-[PR #1](https://github.com/Goldbarn/DSAPprojRepo/pull/1) has merged into `main`. The code, data, runs, figures, and report are in `main`. The report we submit is `report/MS1report.pdf`, built from `report/MS1report.md`. `report/milestone1.md` is an older long draft and is not being submitted.
+[PR #1](https://github.com/Goldbarn/DSAPprojRepo/pull/1) has merged into `main`. The code, data, runs, figures, and report are in `main`. The report we submit is `report/MS1report.pdf`, built from `report/MS1report.md`.
 
 ## 1. Human review (done)
 

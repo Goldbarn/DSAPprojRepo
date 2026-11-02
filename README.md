@@ -74,7 +74,7 @@ Watermarked output is the preprocessed text (NFKC, Cf removed) with substitution
 | `data/splits/` | Calibration/evaluation sets and `manifest.json` |
 | `data/synonyms.json` | Hand-built synonym list; order is the edit order |
 | `results/` | Saved runs, one directory per run; `results/human-review/` holds the official blind teammate reviews of the evaluation and calibration outputs, `results/proxy-review/` and `results/rewrite/review-*` hold earlier AI proxy reviews that are not the official quality check; `results/rewrite/` holds sentence rewrites |
-| `report/` | `MS1report.pdf` is the Milestone 1 submission, built from `MS1report.md` with `typst compile report/MS1report.typ`; `milestone1.md` is a superseded draft; PNG charts in `report/figures/` |
+| `report/` | `MS1report.pdf` is the Milestone 1 submission. Its source is `MS1report.md`, with layout in `MS1report.typ`. Report images are in `report/figures/m1-paper/`. |
 | `secrets/` | Demonstration watermark key |
 
 ## Data sources
