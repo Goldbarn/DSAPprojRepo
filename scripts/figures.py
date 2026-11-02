@@ -15,14 +15,7 @@ POST = RESULTS_DIR / "post-evaluation" / "run-20261031-124254"
 OUT = ROOT / "report" / "figures"
 
 SURFACE, INK, MUTED, GRID = "#fcfcfb", "#0b0b0b", "#52514e", "#e5e4df"
-BLUE, ORANGE, AQUA = "#2a78d6", "#eb6834", "#1baf7a"
-# Counts from the proxy reviews in results/proxy-review and results/rewrite/review-2.
-WORD_SWAPS = [7, 5, 0, 0]
-REWRITING = [9, 9, 4, 4]
-BROADER_V1 = [12, 11, 2, 1]
-BROADER_V2 = [9, 7, 1, 0]
-BROADER_REWRITE = [12, 17, 14, 6]
-
+BLUE, ORANGE = "#2a78d6", "#eb6834"
 plt.rcParams.update(
     {
         "figure.facecolor": SURFACE,
@@ -47,49 +40,6 @@ def fresh_rows() -> list[dict]:
     return read_csv(POST / "fresh_unmarked_scores.csv")
 
 
-def distribution() -> None:
-    rows = fresh_rows()
-    fig, axes = plt.subplots(1, 3, figsize=(6.5, 2.3), sharex=True, sharey=True)
-    bins = [0.2 + i * 0.02 for i in range(27)]
-    for ax, (group, (lo, hi)) in zip(axes, LENGTH_GROUPS.items()):
-        ax.hist([score(r) for r in rows if r["length_group"] == group], bins=bins, color=BLUE, edgecolor=SURFACE, lw=0.8)
-        limit = 0.68 if hi < 100 else 0.56
-        ax.axvline(limit, color=INK, lw=1)
-        ax.text(limit + 0.01, ax.get_ylim()[1] * 0.97, f"{limit:.2f}", color=INK, va="top")
-        ax.axvline(0.55, color=MUTED, lw=1, ls=":")
-        ax.set_title(f"{lo}-{hi} words", fontsize=9, loc="left")
-        ax.set_xlabel("Green fraction")
-        ax.set_xlim(0.2, 0.75)
-        ax.grid(axis="y", color=GRID, lw=0.6)
-        ax.set_axisbelow(True)
-    axes[0].set_ylabel("Unmarked passages")
-    handles = [
-        plt.Line2D([], [], color=INK, lw=1, label="Length-based threshold"),
-        plt.Line2D([], [], color=MUTED, lw=1, ls=":", label="Original threshold 0.55"),
-    ]
-    fig.legend(handles=handles, frameon=False, ncol=2, loc="lower center")
-    fig.tight_layout(rect=(0, 0.09, 1, 1))
-    fig.savefig(OUT / "score_distribution.png", dpi=220)
-
-
-def threshold_choice() -> None:
-    rows = read_csv(RESULTS_DIR / "calibration" / "pool_thresholds.csv")
-    fig, ax = plt.subplots(figsize=(6.5, 2.7))
-    for group, color, marker in zip(LENGTH_GROUPS, (ORANGE, BLUE, AQUA), "o^s"):
-        points = [r for r in rows if r["length_group"] == group]
-        xs = [float(r["threshold"]) for r in points]
-        ys = [100 * int(r["flagged"]) / int(r["tested"]) for r in points]
-        ax.plot(xs, ys, color=color, lw=2, marker=marker, ms=5, label=f"{group} words")
-    ax.set_xlabel("Threshold")
-    ax.set_ylabel("Flagged unmarked passages (%)")
-    ax.set_ylim(0, None)
-    ax.grid(axis="y", color=GRID, lw=0.6)
-    ax.set_axisbelow(True)
-    ax.legend(frameon=False)
-    fig.tight_layout()
-    fig.savefig(OUT / "threshold_choice.png", dpi=220)
-
-
 def false_positives() -> None:
     rows = fresh_rows()
     groups = list(LENGTH_GROUPS)
@@ -107,39 +57,6 @@ def false_positives() -> None:
     ax.legend(frameon=False, loc="upper right")
     fig.tight_layout()
     fig.savefig(OUT / "false_positives.png", dpi=220)
-
-
-def method_comparison() -> None:
-    labels = ["Flagged", "Meaning preserved", "Readable", "Usable and flagged"]
-    fig, ax = plt.subplots(figsize=(6.5, 2.5))
-    for offset, values, color, label in ((-0.2, WORD_SWAPS, ORANGE, "Word swaps"), (0.2, REWRITING, BLUE, "Sentence rewriting")):
-        bars = ax.bar([i + offset for i in range(4)], values, width=0.36, color=color, label=label)
-        ax.bar_label(bars, padding=2, color=INK)
-    ax.set_xticks(range(4), labels)
-    ax.set_ylabel("Passages out of 10")
-    ax.set_ylim(0, 12)
-    ax.grid(axis="y", color=GRID, lw=0.6)
-    ax.set_axisbelow(True)
-    ax.legend(frameon=False, ncol=2, loc="upper center", bbox_to_anchor=(0.5, 1.18))
-    fig.tight_layout()
-    fig.savefig(OUT / "method_comparison.png", dpi=220)
-
-
-def broader_test() -> None:
-    labels = ["Flagged", "Meaning preserved", "Readable", "Usable and flagged"]
-    series = ((BROADER_V1, ORANGE, "Word swaps v1"), (BROADER_V2, AQUA, "Word swaps v2"), (BROADER_REWRITE, BLUE, "Rewriting"))
-    fig, ax = plt.subplots(figsize=(6.5, 2.6))
-    for n, (values, color, label) in enumerate(series):
-        bars = ax.bar([i + (n - 1) * 0.27 for i in range(4)], values, width=0.25, color=color, label=label)
-        ax.bar_label(bars, padding=2, color=INK, fontsize=8)
-    ax.set_xticks(range(4), labels)
-    ax.set_ylabel("Passages out of 20")
-    ax.set_ylim(0, 22)
-    ax.grid(axis="y", color=GRID, lw=0.6)
-    ax.set_axisbelow(True)
-    ax.legend(frameon=False, ncol=3, loc="upper center", bbox_to_anchor=(0.5, 1.18))
-    fig.tight_layout()
-    fig.savefig(OUT / "broader_test.png", dpi=220)
 
 
 def book_labels(rows: list[dict]) -> list[str]:
@@ -180,9 +97,5 @@ def watermarking() -> None:
 
 if __name__ == "__main__":
     OUT.mkdir(parents=True, exist_ok=True)
-    distribution()
-    threshold_choice()
     false_positives()
     watermarking()
-    method_comparison()
-    broader_test()

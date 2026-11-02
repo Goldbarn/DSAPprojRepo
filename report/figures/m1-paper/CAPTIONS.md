@@ -24,8 +24,6 @@ Replace existing Markdown tables with their PNG versions rather than duplicating
 
 - false_positives.png: False positives among 1,500 fresh unmarked passages, with 500 per length group.
   The original threshold is 0.55; length-based thresholds are 0.68 below 100 words and 0.56 otherwise.
-- broader_test.png: Three watermarking methods on 20 new passages, one per book. Meaning and readability
-  are separate proxy judgments. Usable and flagged requires both quality answers and a detector flag.
 
 For a tight six-page report, prioritize the primary score graph, length-group table, and required threat-model
 table. The small allocation, calibration, and primary-result tables can replace existing tables. Include the

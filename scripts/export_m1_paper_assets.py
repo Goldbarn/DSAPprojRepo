@@ -5,7 +5,6 @@ Run: uv run --group report python scripts/export_m1_paper_assets.py
 
 import json
 import textwrap
-from zipfile import ZIP_DEFLATED, ZipFile
 
 import figures
 from matplotlib import pyplot as plt
@@ -101,15 +100,8 @@ def main() -> None:
     figures.OUT = OUT
     plt.rcParams.update({"figure.facecolor": "white", "axes.facecolor": "white", "font.family": "DejaVu Sans"})
     for draw, name in [(figures.watermarking, "watermarking_scores.png"),
-                       (figures.false_positives, "false_positives.png"),
-                       (figures.broader_test, "broader_test.png")]:
+                       (figures.false_positives, "false_positives.png")]:
         draw()
-        if name == "broader_test.png":
-            fig = plt.gcf()
-            fig.set_size_inches(6.5, 2.9)
-            fig.subplots_adjust(bottom=0.22)
-            fig.text(0.02, 0.025, "Separate post-evaluation run; quality judgments come from proxy reviews.",
-                     fontsize=8, color="#333333")
         plt.gcf().savefig(OUT / name, dpi=400, facecolor="white")
         plt.close("all")
     captions = """# Milestone 1 PNG assets
@@ -138,20 +130,13 @@ Replace existing Markdown tables with their PNG versions rather than duplicating
 
 - false_positives.png: False positives among 1,500 fresh unmarked passages, with 500 per length group.
   The original threshold is 0.55; length-based thresholds are 0.68 below 100 words and 0.56 otherwise.
-- broader_test.png: Three watermarking methods on 20 new passages, one per book. Meaning and readability
-  are separate proxy judgments. Usable and flagged requires both quality answers and a detector flag.
 
 For a tight six-page report, prioritize the primary score graph, length-group table, and required threat-model
 table. The small allocation, calibration, and primary-result tables can replace existing tables. Include the
 optional graphs only if retaining their post-evaluation discussion. The separate 100-passage run is not included.
 """
     (OUT / "CAPTIONS.md").write_text(captions, encoding="utf-8")
-    archive = OUT / "m1-paper-pngs.zip"
-    with ZipFile(archive, "w", ZIP_DEFLATED) as bundle:
-        for path in sorted(OUT.glob("*.png")):
-            bundle.write(path, path.name)
-        bundle.write(OUT / "CAPTIONS.md", "CAPTIONS.md")
-    print(f"Exported {len(list(OUT.glob('*.png')))} PNGs at 400 dpi and {archive}")
+    print(f"Exported {len(list(OUT.glob('*.png')))} PNGs at 400 dpi")
 
 
 if __name__ == "__main__":
