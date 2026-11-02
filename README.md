@@ -132,8 +132,10 @@ Watermarked output is the preprocessed text (NFKC, Cf removed) with substitution
 
 ## Contribution statement
 
-| Member | Work | Commits |
-| --- | --- | --- |
-| Rowen Ess (Goldbarn) | First source list, first split, key generation, first calibration run | [c8b9738](https://github.com/Goldbarn/DSAPprojRepo/commit/c8b9738), [260107d](https://github.com/Goldbarn/DSAPprojRepo/commit/260107d) |
-| Will Nahra (Wil N) | Second source list, including the nonfiction sources; blind human review of watermarking outputs | [37c28d8](https://github.com/Goldbarn/DSAPprojRepo/commit/37c28d8) |
-| Austin Sternberg (Yoyojesus) | Package setup, detector, watermarker, pipeline scripts, merged data, expanded synonym list, calibration and evaluation runs, figures, report drafting | [6512aea](https://github.com/Goldbarn/DSAPprojRepo/commit/6512aea), [bc2165d](https://github.com/Goldbarn/DSAPprojRepo/commit/bc2165d), [8214a75](https://github.com/Goldbarn/DSAPprojRepo/commit/8214a75), [58b4da5](https://github.com/Goldbarn/DSAPprojRepo/commit/58b4da5), [c721687](https://github.com/Goldbarn/DSAPprojRepo/commit/c721687), [7691143](https://github.com/Goldbarn/DSAPprojRepo/commit/7691143) |
+| Member | Work |
+| --- | --- |
+| Rowen Ess | First source list, key generation, early split and first calibration run, first draft of the final report |
+| Will Nahra | Second source list including the nonfiction sources, early passage set and split, report edits including the quality-check and false-positive sections, blind human review of the evaluation and calibration outputs |
+| Austin Sternberg | Package setup, detector, watermarker, pipeline scripts, merged data and final split, expanded synonym list, final calibration and evaluation runs, post-evaluation tests, review tools, figures, report editing and PDF |
+
+Commit history: https://github.com/Goldbarn/DSAPprojRepo/commits/main
